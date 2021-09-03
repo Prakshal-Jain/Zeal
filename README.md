@@ -15,3 +15,9 @@ We help hackathons and event participants, startups, and individuals with ideas 
 
 ## Resources:
 https://docs.google.com/document/d/1ohOWhwqaMRoSTwf8QhcVkSYp8GRQHuWnDifakxhE0Wk/edit?usp=sharing
+
+## Setup
+1. Mac:
+
+
+2. Windows:

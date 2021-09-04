@@ -11,7 +11,7 @@ We help hackathons and event participants, startups, and individuals with ideas 
 2. Aleena Sheikh
 3. Anthony Robert Feliciano
 4. Dominic Sciarrino
-5. TBD
+5. Tommy Chow
 
 ## Resources:
 https://docs.google.com/document/d/1ohOWhwqaMRoSTwf8QhcVkSYp8GRQHuWnDifakxhE0Wk/edit?usp=sharing

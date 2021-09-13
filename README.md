@@ -39,6 +39,6 @@ https://docs.google.com/document/d/1ohOWhwqaMRoSTwf8QhcVkSYp8GRQHuWnDifakxhE0Wk/
     * The variable name on different systems my vary, for example: `py` or `python` or `python3`
     * If you are unable to start or install virtual install, ignore first 2 steps upder *Backend* setup process (point 1 under *Setup* heading).
 
-## Workflow
-
+## Workflow:
+    * Get most recent code from a branch: ```git pull origin <branch name>```
 Please feel free to add any questions under `Issues` tab in GitHub. I will resolve them ASAP.

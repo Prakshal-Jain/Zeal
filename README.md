@@ -41,5 +41,4 @@ https://docs.google.com/document/d/1ohOWhwqaMRoSTwf8QhcVkSYp8GRQHuWnDifakxhE0Wk/
 
 ## Workflow
 
-
 Please feel free to add any questions under `Issues` tab in GitHub. I will resolve them ASAP.

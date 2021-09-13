@@ -41,6 +41,6 @@ https://docs.google.com/document/d/1ohOWhwqaMRoSTwf8QhcVkSYp8GRQHuWnDifakxhE0Wk/
 
 ## Workflow:
 * Clone the repository: `git clone git@github.com:Prakshal-Jain/Zeal.git`
-* Get most recent changes: git pull origin `<branch name>`
+* Get most recent changes: `git pull origin <branch name>`
 
 Please feel free to add any questions under `Issues` tab in GitHub. I will resolve them ASAP.

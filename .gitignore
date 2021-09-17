@@ -1,5 +1,7 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+
+# Frontend files
 # dependencies
 /zeal_frontend/node_modules
 /zeal_frontend/.pnp
@@ -22,5 +24,6 @@
 /zeal_frontend/yarn-debug.log*
 /zeal_frontend/yarn-error.log*
 
-# backend
+
+# Backend files
 /zeal_backend/db.sqlite3

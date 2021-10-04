@@ -120,4 +120,4 @@ class SignIn extends Component {
     }
 };
 
-export default SignUp
+export default SignIn

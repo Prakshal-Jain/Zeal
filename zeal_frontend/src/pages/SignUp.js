@@ -140,7 +140,7 @@ class SignUp extends Component {
                                     <div className="d-flex justify-content-center align-items-center mt-4">
                                         <span className="fw-normal">
                                             Already have an account?
-                                            <Card.Link as={Link} to={Routes.SignUp.path} className="fw-bold">
+                                            <Card.Link as={Link} to={Routes.SignIn.path} className="fw-bold">
                                                 {` Login here `}
                                             </Card.Link>
                                         </span>

@@ -4,6 +4,7 @@ import { Route, Switch, Redirect, useHistory } from "react-router-dom";
 // Import the pages
 import Homepage from "./pages/Homepage";
 import SignUp from "./pages/SignUp";
+import SignIn from "./pages/SignIn";
 import {Routes} from "./routes"
 
 class Router extends Component {

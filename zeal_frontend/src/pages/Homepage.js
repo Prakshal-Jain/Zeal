@@ -52,7 +52,7 @@ class Homepage extends React.Component {
                     </Row>
                     <Row>
                         <Col>
-                        <Button variant="outline-secondary" className="m-1">Sign Up</Button>
+                        <Button variant="outline-secondary" className="m-1" as={Link} to={Routes.SignUp.path}>Sign Up</Button>
                         </Col>
                         <Col>
                         <Button variant="outline-secondary" className="m-1">Subscribe</Button>

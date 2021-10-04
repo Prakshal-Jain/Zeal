@@ -5,7 +5,7 @@ import { Route, Switch, Redirect, useHistory } from "react-router-dom";
 import Homepage from "./pages/Homepage";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
-import {Routes} from "./routes"
+import { Routes } from "./routes";
 
 class Router extends Component {
     constructor(props) {
@@ -17,15 +17,9 @@ class Router extends Component {
     render() {
         return (
             <Switch>
-                <Route path={Routes.Homepage.path}>
-                    <Homepage />
-                </Route>
-                <Route path={Routes.SignUp.path}>
-                    <SignUp />
-                </Route>
-                <Route path={Routes.SignIn.path}>
-                    <SignIn />
-                </Route>
+                <Route path={Routes.Homepage.path}><Homepage /></Route>
+                <Route path={Routes.SignUp.path}><SignUp /></Route>
+                <Route path={Routes.SignIn.path}><SignIn /></Route>
             </Switch>
         )
     }

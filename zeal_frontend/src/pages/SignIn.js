@@ -46,22 +46,12 @@ class SignIn extends Component {
                                     <Form className="mt-4">
 
                                         <Form.Group id="email" className="mb-4">
-                                            <Form.Label>Your Email</Form.Label>
+                                            <Form.Label>Email</Form.Label>
                                             <InputGroup>
                                                 <InputGroup.Text>
                                                     <FontAwesomeIcon icon={faEnvelope} />
                                                 </InputGroup.Text>
                                                 <Form.Control autoFocus required type="email" placeholder="example@company.com" onChange={(event) => this.setCredentials("email", event.target.value)} />
-                                            </InputGroup>
-                                        </Form.Group>
-
-                                        <Form.Group id="username" className="mb-4">
-                                            <Form.Label>Username or Organization's name</Form.Label>
-                                            <InputGroup>
-                                                <InputGroup.Text>
-                                                    <FontAwesomeIcon icon={faUserAlt} />
-                                                </InputGroup.Text>
-                                                <Form.Control autoFocus required type="text" placeholder="Enter username here" onChange={(event) => this.setCredentials("username", event.target.value)} />
                                             </InputGroup>
                                         </Form.Group>
 
@@ -75,6 +65,8 @@ class SignIn extends Component {
                                             </InputGroup>
                                         </Form.Group>
 
+                                        
+
                                         {
                                             this.state.errors.length > 0 ?
                                                 <Alert variant="warning">
@@ -87,7 +79,7 @@ class SignIn extends Component {
                                         }
 
                                         <Button variant="primary" className="w-100" onClick={this.validateCredentials}>
-                                            Sign up
+                                            Sign in
                                         </Button>
                                     </Form>
 
@@ -101,6 +93,14 @@ class SignIn extends Component {
                                         <Button variant="outline-light" className="btn-icon-only btn-pil text-dark">
                                             <FontAwesomeIcon icon={faGithub} />
                                         </Button>
+                                    </div>
+                                    <div className="d-flex justify-content-center align-items-center mt-4">
+                                        <span className="fw-normal">
+                                            Forgot your password?
+                                            <Card.Link as={Link} to={Routes.SignUp.path} className="fw-bold">
+                                                {` Recover `}
+                                            </Card.Link>
+                                        </span>
                                     </div>
                                     <div className="d-flex justify-content-center align-items-center mt-4">
                                         <span className="fw-normal">

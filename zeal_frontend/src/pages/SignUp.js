@@ -141,7 +141,7 @@ class SignUp extends Component {
                                         <span className="fw-normal">
                                             Already have an account?
                                             <Card.Link as={Link} to={Routes.SignIn.path} className="fw-bold">
-                                                {` Login here `}
+                                                {` Signin here `}
                                             </Card.Link>
                                         </span>
                                     </div>

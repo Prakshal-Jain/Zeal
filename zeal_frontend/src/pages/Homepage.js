@@ -5,6 +5,7 @@ import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
 import { HashLink } from 'react-router-hash-link';
 import { Link } from 'react-router-dom';
 import ZealHero from '../assets/images/zeal-logo-withoutBg.png'
+import { Routes } from "../routes";
 
 
 class Homepage extends React.Component {
@@ -26,8 +27,8 @@ class Homepage extends React.Component {
                         <Navbar.Collapse id="navbar-default-primary">
                             <Nav className="navbar-nav-hover align-items-lg-center">
                                 <Nav.Link as={HashLink} to="#about">About</Nav.Link>
-                                <Nav.Link as={Link} to={"/"}>Sign In</Nav.Link>
-                                <Nav.Link as={Link} to={"/"}>Sign Up</Nav.Link>
+                                <Nav.Link as={Link} to={Routes.SignIn.path}>Sign In</Nav.Link>
+                                <Nav.Link as={Link} to={Routes.SignUp.path}>Sign Up</Nav.Link>
                                 <Nav.Link as={Link} to={"/"}>Support</Nav.Link>
                                 <Nav.Link as={HashLink} to="#contact" className="d-sm-none d-xl-inline">Contact</Nav.Link>
                             </Nav>
@@ -51,7 +52,7 @@ class Homepage extends React.Component {
                     </Row>
                     <Row>
                         <Col>
-                        <Button variant="outline-secondary" className="m-1">Sign Up</Button>
+                        <Button variant="outline-secondary" className="m-1" as={Link} to={Routes.SignUp.path}>Sign Up</Button>
                         </Col>
                         <Col>
                         <Button variant="outline-secondary" className="m-1">Subscribe</Button>

@@ -7,6 +7,7 @@ import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import { Routes } from "./routes";
 
+
 class Router extends Component {
     constructor(props) {
         super(props);

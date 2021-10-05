@@ -56,7 +56,7 @@ class SignIn extends Component {
                                         </Form.Group>
 
                                         <Form.Group id="password" className="mb-4" onChange={(event) => this.setCredentials("password", event.target.value)}>
-                                            <Form.Label>Your Password</Form.Label>
+                                            <Form.Label>Password</Form.Label>
                                             <InputGroup>
                                                 <InputGroup.Text>
                                                     <FontAwesomeIcon icon={faUnlockAlt} />
@@ -106,7 +106,7 @@ class SignIn extends Component {
                                         <span className="fw-normal">
                                             Need an account?
                                             <Card.Link as={Link} to={Routes.SignUp.path} className="fw-bold">
-                                                {` Sign Up Here `}
+                                                {` Sign Up `}
                                             </Card.Link>
                                         </span>
                                     </div>

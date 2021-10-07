@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
+    'users'
+    
 ]
 
 MIDDLEWARE = [
@@ -82,8 +85,12 @@ WSGI_APPLICATION = 'zeal_backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME':'Zeal',
+        'USER':'postgres',
+        'PASSWORD':os.getenv('DATABASE_PASSWORD'),
+        'HOST':'localhost',
+        'PORT':'5432'
     }
 }
 
@@ -126,7 +133,15 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+AUTH_USER_MODEL = 'users.User'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#allows front end ports to access our app
+CORS_ORIGIN_ALLOW_ALL = True
+
+#allows cookies
+CORS_ALLOW_CREDENTIALS = True

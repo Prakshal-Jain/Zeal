@@ -20,4 +20,4 @@ RUN npm --prefix ./zeal_frontend run build
 
 RUN pip install -r ./zeal_backend/requirements.txt
 
-CMD python ./zeal_backend/manage.py makemigrations && python ./zeal_backend/manage.py migrate && python ./zeal_backend/manage.py runserver 0:8000
+CMD python ./zeal_backend/manage.py makemigrations && python ./zeal_backend/manage.py migrate && python ./zeal_backend/manage.py runserver 0:$PORT

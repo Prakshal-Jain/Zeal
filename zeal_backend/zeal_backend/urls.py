@@ -16,8 +16,33 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 
+from django.contrib import admin
+from django.http import HttpResponse
+from django.urls import path
+from django.views.generic.base import TemplateView
+from zeal_backend.settings import db_config
+
+import psycopg2
+
+def test(request):
+    print('testing database...')
+    conn = psycopg2.connect(db_config)
+    cur = conn.cursor()
+    cur.execute("CREATE TABLE IF NOT EXISTS test (id serial PRIMARY KEY, num integer, data varchar);")
+    cur.execute("INSERT INTO test (num, data) VALUES (%s, %s)", (100, "Hello, world!"))
+
+    cur.execute('SELECT * FROM test;')
+
+    sample = cur.fetchall()
+
+    cur.close()
+    conn.close()
+
+    return HttpResponse(sample)
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/',include('users.urls'))
-
+    path('api/',include('users.urls')),
+    path('test/', test),
+    path('', TemplateView.as_view(template_name='index.html'))
 ]

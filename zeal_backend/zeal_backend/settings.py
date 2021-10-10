@@ -1,3 +1,10 @@
+import os
+import django_heroku
+
+from dotenv import load_dotenv
+
+load_dotenv()
+
 """
 Django settings for zeal_backend project.
 
@@ -61,10 +68,11 @@ CORS_ORIGIN_WHITELIST = [
 
 ROOT_URLCONF = 'zeal_backend.urls'
 
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(Path(BASE_DIR).parent, 'zeal_frontend/build')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -83,14 +91,16 @@ WSGI_APPLICATION = 'zeal_backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+db_config = os.environ['DATABASE_URL'] if 'DATABASE_URL' in os.environ else f'user=postgres password={os.getenv("DATABASE_PASSWORD", "postgres")}'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME':'Zeal',
-        'USER':'postgres',
-        'PASSWORD':os.getenv('DATABASE_PASSWORD'),
-        'HOST':'localhost',
-        'PORT':'5432'
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': os.getenv('DATABASE_PASSWORD', 'postgres'),
+        'HOST': 'localhost',
+        'PORT': 5432,
     }
 }
 
@@ -133,6 +143,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# React build static files
+STATICFILES_DIRS = [
+    os.path.join(Path(BASE_DIR).parent, 'zeal_frontend/build/static')
+]
+
 AUTH_USER_MODEL = 'users.User'
 
 # Default primary key field type
@@ -145,3 +160,6 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 #allows cookies
 CORS_ALLOW_CREDENTIALS = True
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())

@@ -23,6 +23,7 @@ class Router extends Component {
                 <Route exact path={Routes.SignUp.path}><SignUp /></Route>
                 <Route exact path={Routes.SignIn.path}><SignIn /></Route>
                 <Route exact path={Routes.ForgotPassword.path}><ForgotPassword /></Route>
+                <Route exact path={Routes.Contact.path}><Contact /></Route>
             </Switch>
         )
     }

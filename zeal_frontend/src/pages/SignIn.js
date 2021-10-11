@@ -97,7 +97,7 @@ class SignIn extends Component {
                                     <div className="d-flex justify-content-center align-items-center mt-4">
                                         <span className="fw-normal">
                                             Forgot your password?
-                                            <Card.Link as={Link} to={Routes.SignUp.path} className="fw-bold">
+                                            <Card.Link as={Link} to={Routes.ForgotPassword.path} className="fw-bold">
                                                 {` Recover `}
                                             </Card.Link>
                                         </span>

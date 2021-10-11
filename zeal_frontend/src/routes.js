@@ -4,4 +4,5 @@ export const Routes = {
     SignUp: {path: "/signup"},
     SignIn: {path: "/signin"},
     ForgotPassword: {path: "/forgotpassword"},
+    Contact: {path: "/contact"},
 };

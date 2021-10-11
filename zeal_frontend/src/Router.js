@@ -6,6 +6,7 @@ import Homepage from "./pages/Homepage";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import { Routes } from "./routes";
+import ForgotPassword from "./pages/ForgotPassword";
 
 // Required in index.js to provide routing.
 class Router extends Component {
@@ -18,9 +19,10 @@ class Router extends Component {
     render() {
         return (
             <Switch>
-                <Route path={Routes.Homepage.path}><Homepage /></Route>
-                <Route path={Routes.SignUp.path}><SignUp /></Route>
-                <Route path={Routes.SignIn.path}><SignIn /></Route>
+                <Route exact path={Routes.Homepage.path}><Homepage /></Route>
+                <Route exact path={Routes.SignUp.path}><SignUp /></Route>
+                <Route exact path={Routes.SignIn.path}><SignIn /></Route>
+                <Route exact path={Routes.ForgotPassword.path}><ForgotPassword /></Route>
             </Switch>
         )
     }

@@ -3,4 +3,5 @@ export const Routes = {
     Homepage: {path: "/home"},
     SignUp: {path: "/signup"},
     SignIn: {path: "/signin"},
+    ForgotPassword: {path: "/forgotpassword"},
 };

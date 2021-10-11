@@ -1,7 +1,7 @@
 import React from "react";
-import { Col, Row, Card, Image, Button, Container, Navbar, Nav, Alert } from '@themesberg/react-bootstrap';
+import { Col, Row, Card, Image, Button, Container, Navbar, Nav, Alert, Form, InputGroup } from '@themesberg/react-bootstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
+import { faExternalLinkAlt, faUserAlt, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { HashLink } from 'react-router-hash-link';
 import { Link } from 'react-router-dom';
 import ZealHero from '../assets/images/zeal-logo-withoutBg.png'
@@ -19,6 +19,12 @@ class Contact extends React.Component {
             },
             errors: [],
         }
+    }
+
+    setCredentials = (key, value) => {
+        var credential = this.state.credentials
+        credential[key] = value
+        this.setState({ credentials: credential })
     }
 
     renderNavBar = () => {
@@ -66,25 +72,24 @@ class Contact extends React.Component {
                                                 <Form.Control autoFocus required type="text" placeholder="Enter Name" onChange={(event) => this.setCredentials("username", event.target.value)} />
                                             </InputGroup>
                                         </Form.Group>
-
+                                        
                                         <Form.Group id="email" className="mb-4">
                                             <Form.Label>Email</Form.Label>
                                             <InputGroup>
                                                 <InputGroup.Text>
-                                                    <FontAwesomeIcon icon={faUserAlt} />
+                                                    <FontAwesomeIcon icon={faEnvelope} />
                                                 </InputGroup.Text>
                                                 <Form.Control autoFocus required type="text" placeholder="Enter Email" onChange={(event) => this.setCredentials("email", event.target.value)} />
                                             </InputGroup>
                                         </Form.Group>
 
                                         <Form.Group id="message" className="mb-4">
-                                            <Form.Label>Message</Form.Label>
-                                            <InputGroup>
-                                                <InputGroup.Text>
-                                                    <FontAwesomeIcon icon={faUserAlt} />
-                                                </InputGroup.Text>
-                                                <Form.Control autoFocus required type="text" placeholder="Enter E-Mail" onChange={(event) => this.setCredentials("message", event.target.value)} />
-                                            </InputGroup>
+                                        <Form.Label>Message</Form.Label>
+                                            <Form.Control 
+                                                as="textarea"
+                                                placeholder=""
+                                                style={{ height: '100px'}}
+                                            />
                                         </Form.Group>
 
                                         

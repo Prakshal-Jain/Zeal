@@ -29,8 +29,8 @@ class Homepage extends React.Component {
                                 <Nav.Link as={HashLink} to="#about">About</Nav.Link>
                                 <Nav.Link as={Link} to={Routes.SignIn.path}>Sign In</Nav.Link>
                                 <Nav.Link as={Link} to={Routes.SignUp.path}>Sign Up</Nav.Link>
-                                <Nav.Link as={Link} to={Routes.Support.path}>Support</Nav.Link>
-                                <Nav.Link as={HashLink} to="#contact" className="d-sm-none d-xl-inline">Contact</Nav.Link>
+                                <Nav.Link as={Link} to="/">Support</Nav.Link>
+                                <Nav.Link as={Link} to="/contact" className="d-sm-none d-xl-inline">Contact</Nav.Link>
                             </Nav>
                         </Navbar.Collapse>
                     </div>

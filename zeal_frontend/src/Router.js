@@ -7,6 +7,7 @@ import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import { Routes } from "./routes";
 import ForgotPassword from "./pages/ForgotPassword";
+import Contact from "./pages/ContactForm"
 
 // Required in index.js to provide routing.
 class Router extends Component {

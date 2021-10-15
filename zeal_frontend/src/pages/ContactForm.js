@@ -31,8 +31,10 @@ class Contact extends React.Component {
         return (
             <Navbar variant="dark" expand="lg" bg="dark" className="navbar-transparent navbar-theme-primary sticky-top">
                 <Container className="position-relative justify-content-between px-3">
-                    <Navbar.Brand as={HashLink} to="#home" className="me-lg-3 d-flex align-items-center">
-                        <Image src={ZealHero} />
+                    <Navbar.Brand className="me-lg-3 d-flex align-items-center">
+                        <Card.Link as={Link} to={Routes.Homepage.path}>
+                            <Image src={ZealHero} />
+                        </Card.Link>
                     </Navbar.Brand>
 
                     <div className="d-flex align-items-center">
@@ -41,8 +43,8 @@ class Contact extends React.Component {
                                 <Nav.Link as={HashLink} to="#about">About</Nav.Link>
                                 <Nav.Link as={Link} to={Routes.SignIn.path}>Sign In</Nav.Link>
                                 <Nav.Link as={Link} to={Routes.SignUp.path}>Sign Up</Nav.Link>
-                                <Nav.Link as={Link} to={"/"}>Support</Nav.Link>
-                                <Nav.Link as={Link} to={Routes.Contact.path}>Contact</Nav.Link>
+                                <Nav.Link as={Link} to="/">Support</Nav.Link>
+                                <Nav.Link as={Link} to={Routes.Contact.path} className="d-sm-none d-xl-inline">Contact</Nav.Link>
                             </Nav>
                         </Navbar.Collapse>
                     </div>

@@ -5,6 +5,7 @@ import { Route, Switch, Redirect, useHistory } from "react-router-dom";
 import Homepage from "./pages/Homepage";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
+import Profile from "./pages/Profile";
 import { Routes } from "./routes";
 import ForgotPassword from "./pages/ForgotPassword";
 import Contact from "./pages/ContactForm"
@@ -23,8 +24,7 @@ class Router extends Component {
                 <Route exact path={Routes.Homepage.path}><Homepage /></Route>
                 <Route exact path={Routes.SignUp.path}><SignUp /></Route>
                 <Route exact path={Routes.SignIn.path}><SignIn /></Route>
-                <Route exact path={Routes.ForgotPassword.path}><ForgotPassword /></Route>
-                <Route exact path={Routes.Contact.path}><Contact /></Route>
+                <Route exact path={Routes.Profile.path}><Profile /></Route>
             </Switch>
         )
     }

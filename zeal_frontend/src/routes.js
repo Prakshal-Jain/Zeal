@@ -1,8 +1,7 @@
 export const Routes = {
     // Pages
-    Homepage: {path: "/home"},
+    Homepage: {path: "/"},
     SignUp: {path: "/signup"},
     SignIn: {path: "/signin"},
-    ForgotPassword: {path: "/forgotpassword"},
-    Contact: {path: "/contact"},
+    Profile: {path: "/profile"},
 };

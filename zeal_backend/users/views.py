@@ -26,8 +26,6 @@ class LoginView(APIView):
         #find user by email
         user = User.objects.filter(email = email).first()
         
-       
-        
         #raise exception if user not found
         if user is None:
             raise AuthenticationFailed('User not found!')

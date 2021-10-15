@@ -24,6 +24,8 @@ class Router extends Component {
                 <Route exact path={Routes.Homepage.path}><Homepage /></Route>
                 <Route exact path={Routes.SignUp.path}><SignUp /></Route>
                 <Route exact path={Routes.SignIn.path}><SignIn /></Route>
+                <Route exact path={Routes.ForgotPassword.path}><ForgotPassword /></Route>
+                <Route exact path={Routes.Contact.path}><Contact /></Route>
                 <Route exact path={Routes.Profile.path}><Profile /></Route>
             </Switch>
         )

@@ -16,7 +16,6 @@ class Profile extends Component {
         }
     }
 
-
     componentDidMount = () => {
     }
 

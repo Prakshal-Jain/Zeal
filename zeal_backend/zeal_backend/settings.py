@@ -47,8 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
-    'users'
-    
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -98,7 +97,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'postgres',
         'USER': 'postgres',
-        'PASSWORD': 'Jainprakshal@22',
+        'PASSWORD': os.getenv('DATABASE_PASSWORD', 'postgres'),
         'HOST': 'localhost',
         'PORT': 5432,
     }

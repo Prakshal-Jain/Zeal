@@ -26,6 +26,10 @@ class SignUp extends Component {
         }
     }
 
+    validateCredentials = async () => {
+        axios.post('/api/register', this.state.credentials)
+    }
+
     setCredentials = (key, value) => {
         var credential = this.state.credentials
         credential[key] = value

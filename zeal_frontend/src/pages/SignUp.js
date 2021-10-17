@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faEnvelope, faUnlockAlt, faUserAlt } from "@fortawesome/free-solid-svg-icons";
 import { faLinkedinIn, faGithub } from "@fortawesome/free-brands-svg-icons";
-import { Col, Row, Form, Card, Button, FormCheck, Container, InputGroup, Alert, Nav, Navbar, Image } from '@themesberg/react-bootstrap';
+import { Col, Row, Form, Card, Button, FormCheck, Container, InputGroup, Alert, Nav, Navbar, Image, AccordionCollapse } from '@themesberg/react-bootstrap';
 import { Link } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
 import ZealHero from '../assets/images/zeal-logo-withoutBg.png'
@@ -15,8 +15,8 @@ class SignUp extends Component {
         super(props);
         this.state = {
             credentials: {
+                "name": null,
                 "email": null,
-                "username": null,
                 "password": null,
                 "first_name": null,
                 "last_name": null,
@@ -87,7 +87,7 @@ class SignUp extends Component {
                                                     <InputGroup.Text>
                                                         <FontAwesomeIcon icon={faUserAlt} />
                                                     </InputGroup.Text>
-                                                    <Form.Control autoFocus required type="text" placeholder="Enter username here" onChange={(event) => this.setCredentials("username", event.target.value)} />
+                                                    <Form.Control autoFocus required type="text" placeholder="Enter username here" onChange={(event) => this.setCredentials("name", event.target.value)} />
                                                 </InputGroup>
                                             </Form.Group>
 

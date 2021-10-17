@@ -23,6 +23,10 @@ class SignIn extends Component {
         }
     }
 
+    validateCredentials = async () => {
+        axios.post('/api/login', this.state.credentials)
+    }
+
     setCredentials = (key, value) => {
         var credential = this.state.credentials
         credential[key] = value

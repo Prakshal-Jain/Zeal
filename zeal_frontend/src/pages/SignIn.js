@@ -26,7 +26,7 @@ class SignIn extends Component {
 
     validateCredentials = async () => {
         axios.post('/api/login', this.state.credentials).then((response) => {
-            if (response.status == 200) {
+            if (response.status === 200) {
                 this.setState({redirect: true})
             }
         })

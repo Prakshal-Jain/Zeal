@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faEnvelope, faUnlockAlt, faUserAlt } from "@fortawesome/free-solid-svg-icons";
 import { faLinkedinIn, faGithub } from "@fortawesome/free-brands-svg-icons";
 import { Col, Row, Form, Card, Button, FormCheck, Container, InputGroup, Alert, Nav, Navbar, Image } from '@themesberg/react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
 import ZealHero from '../assets/images/zeal-logo-withoutBg.png'
 import axios from "axios";
@@ -20,11 +20,16 @@ class SignIn extends Component {
                 "password": null,
             },
             errors: [],
+            redirect: false
         }
     }
 
     validateCredentials = async () => {
-        axios.post('/api/login', this.state.credentials)
+        axios.post('/api/login', this.state.credentials).then((response) => {
+            if (response.status == 200) {
+                this.setState({redirect: true})
+            }
+        })
     }
 
     setCredentials = (key, value) => {
@@ -58,6 +63,9 @@ class SignIn extends Component {
     }
 
     render() {
+        if (this.state.redirect) {
+            return <Redirect to='/profile'/>
+        }
         return (
             <div>
                 {this.renderNavBar()}

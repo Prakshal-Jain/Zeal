@@ -15,6 +15,7 @@ import { Routes } from "../routes";
 import ProfileImg from "../assets/profile_images/Image.jpeg";
 
 const Profile = () => {
+  const history = useHistory();
   // The state hook for the user object.
   // We'll call setUser(newUser) to change the user (state), which will then trigger this component to rebuid
   // with the new provided user object.
@@ -26,16 +27,20 @@ const Profile = () => {
   // We'll make the dependency array empty so that the effect is only called on the first build and never again.
   useEffect(() => {
     // Make a request for the currently logged in user's data and set it using the hook which will then trigger a rebuild.
-    axios.get("/api/user").then((response) => setUser(response.data));
-  }, []);
-
-  const history = useHistory();
+    axios
+      .get("/api/user")
+      .then((response) => {
+        if (response.status === 200) {
+          setUser(response.data);
+        }
+      })
+      .catch(() => history.push("/"));
+  }, [history]);
 
   const logout = () => {
-    axios.post('/api/logout').then((response) => {
+    axios.post("/api/logout").then((response) => {
       if (response.status === 200) {
         history.push("/");
-
       }
     });
   };

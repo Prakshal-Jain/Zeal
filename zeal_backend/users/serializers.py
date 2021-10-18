@@ -5,6 +5,7 @@ from .models import User
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
+        # not sure if profile pic should be in fields
         fields = ['id', 'name', 'email', 'password', 'username', 'profile_pic']
 
         # write extra properties for fields here
@@ -20,3 +21,7 @@ class UserSerializer(serializers.ModelSerializer):
             instance.set_password(password)
         instance.save()
         return instance
+
+
+class ImageSerializer(serializers.Serializer):
+    image = serializers.ImageField()

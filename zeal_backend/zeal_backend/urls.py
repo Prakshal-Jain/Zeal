@@ -21,8 +21,12 @@ from django.http import HttpResponse
 from django.urls import path
 from django.views.generic.base import TemplateView
 from zeal_backend.settings import db_config
-
+from django.conf import Settings
+from django.conf.urls.static import static
+from django import views
 import psycopg2
+
+from zeal_backend.users.views import UploadImage
 
 def test(request):
     print('testing database...')
@@ -44,5 +48,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/',include('users.urls')),
     path('test/', test),
-    path('', TemplateView.as_view(template_name='index.html'))
+    path('', TemplateView.as_view(template_name='index.html')),
+    # path('upload/', views.UploadImage)
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,6 +1,6 @@
 import os
 import django_heroku
-
+from django.conf.urls.static import static
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -159,6 +159,10 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 #allows cookies
 CORS_ALLOW_CREDENTIALS = True
+
+
+MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())

@@ -10,3 +10,9 @@ class User(AbstractUser):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ["username"]
+
+class Image(models.Model):
+    caption=models.CharField(max_length=100)
+    image=models.ImageField(upload_to="images/")
+    def __str__(self):
+        return self.caption

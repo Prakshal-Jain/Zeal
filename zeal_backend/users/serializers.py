@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import User
+from .models import ImageModel, User
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -19,3 +19,9 @@ class UserSerializer(serializers.ModelSerializer):
             instance.set_password(password)
         instance.save()
         return instance
+
+class ImageSerializer(serializers.ModelSerializer):
+   
+    class Meta:
+        model = ImageModel
+        fields = ('profile_pic')

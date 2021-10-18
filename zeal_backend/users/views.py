@@ -3,7 +3,7 @@ from django.http import response
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import UserSerializer
+from .serializers import ImageSerializer, UserSerializer
 from .models import User
 from rest_framework.exceptions import AuthenticationFailed
 import jwt,datetime
@@ -86,3 +86,9 @@ class LogoutView(APIView):
 
 
 
+class ProfilePic(APIView):
+    def post(self, request):
+        serializer = ImageSerializer(data = request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)

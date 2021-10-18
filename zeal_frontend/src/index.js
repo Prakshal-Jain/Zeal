@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 // Homepage routes all the pages.
-import Homepage from "./pages/Homepage";
 import ScrollToTop from "./components/ScrollToTop";
 import { HashRouter } from "react-router-dom";
 
@@ -12,11 +11,12 @@ import "react-datetime/css/react-datetime.css";
 
 // core styles
 import "./scss/volt.scss";
+import Router from './Router';
 
 ReactDOM.render(
   <HashRouter>
     <ScrollToTop />
-    <Homepage />
+    <Router />
   </HashRouter>,
   document.getElementById('root')
 );

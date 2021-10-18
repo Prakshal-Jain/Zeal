@@ -1,3 +1,10 @@
+import os
+import django_heroku
+from django.conf.urls.static import static
+from dotenv import load_dotenv
+
+load_dotenv()
+
 """
 Django settings for zeal_backend project.
 
@@ -11,6 +18,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -58,10 +67,11 @@ CORS_ORIGIN_WHITELIST = [
 
 ROOT_URLCONF = 'zeal_backend.urls'
 
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(Path(BASE_DIR).parent, 'zeal_frontend/build')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -80,10 +90,16 @@ WSGI_APPLICATION = 'zeal_backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+db_config = os.environ['DATABASE_URL'] if 'DATABASE_URL' in os.environ else f'user=postgres password={os.getenv("DATABASE_PASSWORD", "postgres")}'
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': os.getenv('DATABASE_PASSWORD', 'postgres'),
+        'HOST': 'localhost',
+        'PORT': 5432,
     }
 }
 
@@ -126,7 +142,27 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# React build static files
+STATICFILES_DIRS = [
+    os.path.join(Path(BASE_DIR).parent, 'zeal_frontend/build/static')
+]
+
+AUTH_USER_MODEL = 'users.User'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#allows front end ports to access our app
+CORS_ORIGIN_ALLOW_ALL = True
+
+#allows cookies
+CORS_ALLOW_CREDENTIALS = True
+
+
+MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())

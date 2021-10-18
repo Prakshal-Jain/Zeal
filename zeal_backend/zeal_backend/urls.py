@@ -24,9 +24,8 @@ from zeal_backend.settings import db_config
 from django.conf import Settings
 from django.conf.urls.static import static
 from django import views
+from django.conf import settings
 import psycopg2
-
-from zeal_backend.users.views import UploadImage
 
 def test(request):
     print('testing database...')
@@ -52,4 +51,6 @@ urlpatterns = [
     # path('upload/', views.UploadImage)
 ]
 
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+urlpatterns += static(settings.MEDIA_URL,
+                        document_root=settings.MEDIA_ROOT)

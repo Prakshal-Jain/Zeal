@@ -52,17 +52,11 @@ const Profile = () => {
           <h5 className="mb-4">General information</h5>
           <Form>
             <Row>
-              <Col md={6} className="mb-3">
-                Profile Picture
-              </Col>
-              <Col md={6} className="mb-3">
+              <Col className="mb-3">
                 <Row>
-                  <Col xs={9}>
-                    <Form.Control type="file" />
-                  </Col>
-                  <Col xs={3} className="d-flex justify-content-center">
+                  <Col>
                     <Card.Img
-                      src={ProfileImg}
+                      src={user.profile_pic}
                       alt="Neil Portrait"
                       className="user-avatar small-avatar rounded-circle"
                     />
@@ -100,26 +94,12 @@ const Profile = () => {
                 {user.email}
               </Col>
             </Row>
-            <Row className="align-items-center">
-              <Col md={6} className="mb-3">
-                <Form.Group id="password">
-                  <Row>
-                    <Col>
-                      <Form.Label>Password</Form.Label>
-                      <Button variant="danger" size="sm" className={"mx-4"}>
-                        Change Password
-                      </Button>
-                    </Col>
-                  </Row>
-                </Form.Group>
-              </Col>
-            </Row>
+
             <Row>
               <Col md={6} className="mb-3">
                 <Button
                   variant="danger"
                   size="sm"
-                  className={"mx-4"}
                   onClick={() => logout()}
                 >
                   Logout

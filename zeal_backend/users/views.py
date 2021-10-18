@@ -8,7 +8,6 @@ from .models import User
 from rest_framework.exceptions import AuthenticationFailed
 import jwt,datetime
 import json
-from .forms import ImageForm
 
 # Create your views here.
 class RegisterView(APIView):
@@ -84,15 +83,4 @@ class LogoutView(APIView):
             'message':'cookie removed succesfully'
         }
         return response
-
-class UploadImage(APIView):
-    def post(self, request):
-        form = ImageForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            img_obj = form.instance
-            return render(request, 'index.html', {'form': form, 'img_obj': img_obj})
-        else:
-            form = ImageForm()
-            return render(request, 'index.html', {'form': form})
 

@@ -4,7 +4,7 @@ from .models import ImageModel, User
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id','name','email','password','username']
+        fields = ['id','name','email','password','username', 'profile_pic']
 
         #write extra properties for fields here
         extra_kwargs = {
@@ -19,9 +19,3 @@ class UserSerializer(serializers.ModelSerializer):
             instance.set_password(password)
         instance.save()
         return instance
-
-class ImageSerializer(serializers.ModelSerializer):
-   
-    class Meta:
-        model = ImageModel
-        fields = ('profile_pic')

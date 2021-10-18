@@ -88,7 +88,9 @@ class LogoutView(APIView):
 
 class ProfilePic(APIView):
     def post(self, request):
-        serializer = ImageSerializer(data = request.data)
+
+        # password = request.data['profile_pic']
+        serializer = UserSerializer(data = request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data)

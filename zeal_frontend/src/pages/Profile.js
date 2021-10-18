@@ -10,7 +10,7 @@ import {
   Button,
 } from "@themesberg/react-bootstrap";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { Routes } from "../routes";
 import ProfileImg from "../assets/profile_images/Image.jpeg";
 
@@ -28,6 +28,17 @@ const Profile = () => {
     // Make a request for the currently logged in user's data and set it using the hook which will then trigger a rebuild.
     axios.get("/api/user").then((response) => setUser(response.data));
   }, []);
+
+  const history = useHistory();
+
+  const logout = () => {
+    axios.post('/api/logout').then((response) => {
+      if (response.status === 200) {
+        history.push("/");
+
+      }
+    });
+  };
 
   const render_profile_form = () => {
     return (
@@ -96,6 +107,18 @@ const Profile = () => {
                     </Col>
                   </Row>
                 </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+              <Col md={6} className="mb-3">
+                <Button
+                  variant="danger"
+                  size="sm"
+                  className={"mx-4"}
+                  onClick={() => logout()}
+                >
+                  Logout
+                </Button>
               </Col>
             </Row>
           </Form>

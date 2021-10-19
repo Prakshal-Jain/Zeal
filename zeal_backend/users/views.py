@@ -1,12 +1,14 @@
 from typing import ByteString
+from django.core import send_mail
+from django.core.checks import messages
 from django.http import response
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import UserSerializer
-from .models import User
+from .models import User,PasswordReset
 from rest_framework.exceptions import AuthenticationFailed
-import jwt,datetime
+import jwt,datetime,random,string
 import json
 
 # Create your views here.
@@ -39,7 +41,7 @@ class LoginView(APIView):
         #iat:when token was created
         payload = {
             'id':user.id,
-            'exp':datetime.datetime.utcnow() +datetime.timedelta(minutes = 60),
+            'exp':datetime.datetime.utcnow() + datetime.timedelta(minutes = 60),
             'iat':datetime.datetime.utcnow()
         }
         #TODO: find place for 'secret' key 
@@ -52,6 +54,7 @@ class LoginView(APIView):
         response.data = {
             "jwt":token
         }
+        
 
         return response
 
@@ -83,6 +86,31 @@ class LogoutView(APIView):
             'message':'cookie removed succesfully'
         }
         return response
+
+class ForgotPasswordAPIView(APIView):
+
+    def post(self,request):
+        #request contains email
+        email = request.data['email']
+        #generate token(did this manually)
+        token = ''.join(random.choice(string.ascii_uppercase)+string.digits for _ in range(12))
+        PasswordReset.objects.create(email = email,token = token)
+
+
+        #send email with token
+        send_mail(
+            subject = "Reset your password!",
+            message = 'Click this link <a href="http://localhost:3000/reset/'+ token + '">here</a> to reset your password!',
+            recipient_list = [email]
+        )
+
+
+
+        return Response(
+            {
+                ''
+            }
+        )
 
 
 

@@ -3,6 +3,7 @@ from django.core.mail import send_mail
 from django.core.checks import messages
 from django.http import response
 from django.shortcuts import render
+from rest_framework import exceptions
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import UserSerializer
@@ -100,7 +101,7 @@ class ForgotPasswordAPIView(APIView):
 
         #send email with token
         send_mail(
-            subject = "Reset your password!",
+            subject = "Reset your Zeal password!",
             message = 'Click this link <a href="http://localhost:3000/reset/'+ token + '">here</a> to reset your password!',
             from_email = os.getenv('EMAIL_HOST_USER'),
             recipient_list = [email]
@@ -113,6 +114,32 @@ class ForgotPasswordAPIView(APIView):
                 'response':"Please check your email!"
             }
         )
+
+class ResterPasswordAPIView(APIView):
+    def post(self, request):
+        data = request.data
+
+        if data['password'] != data['password_confirm']:
+            raise exceptions.APIException('Passwords do not match')
+
+
+        password_reset = PasswordReset.objects.filter(token = data['token']).first()
+        user = User.objects.filter(email = password_reset.email).first()
+
+        if not user:
+            raise exceptions.NotFound('user not found!')
+        
+        user.set_password(data['password'])
+        user.save()
+
+
+        return Response(
+            {
+                'message':'Password sucessfully reset'
+            }
+        )
+
+
 
 
 

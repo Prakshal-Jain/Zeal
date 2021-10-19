@@ -1,5 +1,5 @@
 from typing import ByteString
-from django.core import send_mail
+from django.core.mail import send_mail
 from django.core.checks import messages
 from django.http import response
 from django.shortcuts import render
@@ -9,6 +9,7 @@ from .serializers import UserSerializer
 from .models import User,PasswordReset
 from rest_framework.exceptions import AuthenticationFailed
 import jwt,datetime,random,string
+import os
 import json
 
 # Create your views here.
@@ -101,6 +102,7 @@ class ForgotPasswordAPIView(APIView):
         send_mail(
             subject = "Reset your password!",
             message = 'Click this link <a href="http://localhost:3000/reset/'+ token + '">here</a> to reset your password!',
+            from_email = os.getenv('EMAIL_HOST_USER'),
             recipient_list = [email]
         )
 
@@ -108,7 +110,7 @@ class ForgotPasswordAPIView(APIView):
 
         return Response(
             {
-                ''
+                'response':"Please check your email!"
             }
         )
 

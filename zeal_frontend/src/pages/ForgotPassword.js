@@ -91,7 +91,7 @@ class ForgotPassword extends Component {
                                                     ""
                                             }
 
-                                            <Button variant="primary" className="w-100" onClick={this.validateCredentials}>
+                                            <Button variant="primary" className="w-100" onClick= {this.validateCredentials}>
                                                 Send Me the Code
                                             </Button>
                                         </Form>

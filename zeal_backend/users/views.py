@@ -46,17 +46,16 @@ class LoginView(APIView):
             'exp':datetime.datetime.utcnow() + datetime.timedelta(minutes = 60),
             'iat':datetime.datetime.utcnow()
         }
-        #TODO: find place for 'secret' key 
+       # #TODO: find place for 'secret' key 
         token = jwt.encode(payload,'secret',algorithm='HS256')
 
 
         response = Response()
-        #set the token to a cookie
+       # #set the token to a cookie
         response.set_cookie(key = 'jwt',value = token, httponly = True)
         response.data = {
             "jwt":token
         }
-        
 
         return response
 
@@ -115,12 +114,10 @@ class ForgotPasswordAPIView(APIView):
             }
         )
 
-class ResterPasswordAPIView(APIView):
+class ResetPasswordAPIView(APIView):
     def post(self, request):
         data = request.data
 
-        if data['password'] != data['password_confirm']:
-            raise exceptions.APIException('Passwords do not match')
 
 
         password_reset = PasswordReset.objects.filter(token = data['token']).first()

@@ -11,3 +11,9 @@ class User(AbstractUser):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ["username"]
+
+
+
+class PasswordReset(models.Model):
+    email = models.CharField(max_length=255)
+    token = models.CharField(max_length=255, unique=True)

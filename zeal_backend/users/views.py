@@ -92,7 +92,18 @@ class ForgotPasswordAPIView(APIView):
 
     def post(self,request):
         #request contains email
-        email = request.data['email']
+        username = request.data['username']
+
+
+        
+        user = User.objects.filter(username = username).first()
+        #raise exception if user not found
+        if user is None:
+            raise AuthenticationFailed('User not found!')
+        email = user.email
+        
+
+
         #generate token(did this manually)
         token = ''.join(random.choice(string.ascii_uppercase)+string.digits for _ in range(12))
         PasswordReset.objects.create(email = email,token = token)

@@ -10,11 +10,12 @@ import {
   Button,
 } from "@themesberg/react-bootstrap";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { Routes } from "../routes";
 import ProfileImg from "../assets/profile_images/Image.jpeg";
 
 const Profile = () => {
+  const history = useHistory();
   // The state hook for the user object.
   // We'll call setUser(newUser) to change the user (state), which will then trigger this component to rebuid
   // with the new provided user object.
@@ -26,8 +27,23 @@ const Profile = () => {
   // We'll make the dependency array empty so that the effect is only called on the first build and never again.
   useEffect(() => {
     // Make a request for the currently logged in user's data and set it using the hook which will then trigger a rebuild.
-    axios.get("/api/user").then((response) => setUser(response.data));
-  }, []);
+    axios
+      .get("/api/user")
+      .then((response) => {
+        if (response.status === 200) {
+          setUser(response.data);
+        }
+      })
+      .catch(() => history.push("/"));
+  }, [history]);
+
+  const logout = () => {
+    axios.post("/api/logout").then((response) => {
+      if (response.status === 200) {
+        history.push("/");
+      }
+    });
+  };
 
   const render_profile_form = () => {
     return (
@@ -36,17 +52,11 @@ const Profile = () => {
           <h5 className="mb-4">General information</h5>
           <Form>
             <Row>
-              <Col md={6} className="mb-3">
-                Profile Picture
-              </Col>
-              <Col md={6} className="mb-3">
+              <Col className="mb-3">
                 <Row>
-                  <Col xs={9}>
-                    <Form.Control type="file" />
-                  </Col>
-                  <Col xs={3} className="d-flex justify-content-center">
+                  <Col>
                     <Card.Img
-                      src={ProfileImg}
+                      src={user.profile_pic}
                       alt="Neil Portrait"
                       className="user-avatar small-avatar rounded-circle"
                     />
@@ -84,18 +94,16 @@ const Profile = () => {
                 {user.email}
               </Col>
             </Row>
-            <Row className="align-items-center">
+
+            <Row>
               <Col md={6} className="mb-3">
-                <Form.Group id="password">
-                  <Row>
-                    <Col>
-                      <Form.Label>Password</Form.Label>
-                      <Button variant="danger" size="sm" className={"mx-4"}>
-                        Change Password
-                      </Button>
-                    </Col>
-                  </Row>
-                </Form.Group>
+                <Button
+                  variant="danger"
+                  size="sm"
+                  onClick={() => logout()}
+                >
+                  Logout
+                </Button>
               </Col>
             </Row>
           </Form>

@@ -24,19 +24,19 @@ class RegisterView(APIView):
 class LoginView(APIView):
     def post(self , request):
         #get email and password
-        email = request.data['email'] 
+        email = request.data['email']
         password = request.data['password']
 
         #find user by email
         user = User.objects.filter(email = email).first()
-        
+
         #raise exception if user not found
         if user is None:
             raise AuthenticationFailed('User not found!')
 
         if not user.check_password(password):
             raise AuthenticationFailed('Incorrect password!')
-        
+
         #payload for JWT
         #id:user id
         #exp:how long you want the token to last(in this case it will last 60 minutes)
@@ -46,7 +46,7 @@ class LoginView(APIView):
             'exp':datetime.datetime.utcnow() + datetime.timedelta(minutes = 60),
             'iat':datetime.datetime.utcnow()
         }
-       # #TODO: find place for 'secret' key 
+       # #TODO: find place for 'secret' key
         token = jwt.encode(payload,'secret',algorithm='HS256')
 
 
@@ -63,7 +63,7 @@ class UserView(APIView):
     def get(self, request):
         #get cookie
         token = request.COOKIES.get('jwt')
-        
+
         #if cookie not found
         if not token:
             raise AuthenticationFailed('Unauthenticated')
@@ -76,9 +76,9 @@ class UserView(APIView):
         user = User.objects.filter(id = payload['id']).first()
         #user object not json serializable so need serializer
         serializer = UserSerializer(user)
-            
+
         return Response(serializer.data)
-       
+
 class LogoutView(APIView):
     def post(self , request):
         response = Response()
@@ -125,7 +125,7 @@ class ResetPasswordAPIView(APIView):
 
         if not user:
             raise exceptions.NotFound('user not found!')
-        
+
         user.set_password(data['password'])
         user.save()
 
@@ -135,8 +135,3 @@ class ResetPasswordAPIView(APIView):
                 'message':'Password sucessfully reset'
             }
         )
-
-
-
-
-

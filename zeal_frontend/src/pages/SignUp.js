@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faEnvelope, faUnlockAlt, faUserAlt } from "@fortawesome/free-solid-svg-icons";
 import { faLinkedinIn, faGithub } from "@fortawesome/free-brands-svg-icons";
-import { Col, Row, Form, Card, Button, FormCheck, Container, InputGroup, Alert, Nav, Navbar, Image } from '@themesberg/react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Col, Row, Form, Card, Button, FormCheck, Container, InputGroup, Alert, Nav, Navbar, Image, AccordionCollapse } from '@themesberg/react-bootstrap';
+import { Link, Redirect } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
 import ZealHero from '../assets/images/zeal-logo-withoutBg.png'
 import axios from "axios";
@@ -15,15 +15,24 @@ class SignUp extends Component {
         super(props);
         this.state = {
             credentials: {
-                "email": null,
                 "username": null,
+                "email": null,
                 "password": null,
-                "first_name": null,
+                "name": null,
                 "last_name": null,
                 "confirm_password": null,
             },
             errors: [],
+            redirect: false
         }
+    }
+
+    validateCredentials = async () => {
+        axios.post('/api/register', this.state.credentials).then((response) => {
+            if (response.status === 200) {
+                this.setState({redirect: true})
+            }
+        })
     }
 
     setCredentials = (key, value) => {
@@ -33,6 +42,9 @@ class SignUp extends Component {
     }
 
     renderNavBar = () => {
+        if (this.state.redirect) {
+            return <Redirect to='/'/>
+        }
         return (
             <Navbar variant="dark" expand="lg" bg="dark" className="navbar-transparent navbar-theme-primary sticky-top">
                 <Container className="position-relative justify-content-between px-3">
@@ -95,7 +107,7 @@ class SignUp extends Component {
                                                 <Col md={6} className="mb-3">
                                                     <Form.Group id="firstName">
                                                         <Form.Label>First Name</Form.Label>
-                                                        <Form.Control required type="text" placeholder="Enter your first name" onChange={(event) => this.setCredentials("first_name", event.target.value)} />
+                                                        <Form.Control required type="text" placeholder="Enter your first name" onChange={(event) => this.setCredentials("name", event.target.value)} />
                                                     </Form.Group>
                                                 </Col>
                                                 <Col md={6} className="mb-3">

@@ -8,7 +8,7 @@ from rest_framework.response import Response
 from .serializer import EventSerializer
 # Create your views here.
 
-class eventTest(APIView):
+class EventView(APIView):
    def post(self, request):
       serializer = EventSerializer(data = request.data)
       serializer.is_valid(raise_exception=True)

@@ -7,6 +7,7 @@ class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
         fields = [
+            'id',
             'name', 
             'owner',
             'dateCreated', 
@@ -17,5 +18,5 @@ class EventSerializer(serializers.ModelSerializer):
             'code', 
             ]
         # TODO define create function in order to instance an event in a JSON serializable way
-        def create(self, validated_data):
-            pass
+    def create(self, validated_data):
+        pass

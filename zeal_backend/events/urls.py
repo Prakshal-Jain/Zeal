@@ -1,7 +1,7 @@
 from django.urls import path
-from .views import eventTest
+from .views import CreateEvent
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
-    path('test', eventTest.as_view())
+    path('create/', CreateEvent.as_view())
 ]

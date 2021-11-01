@@ -8,4 +8,3 @@ class Event(models.Model):
     name = models.CharField(max_length=255)
     HostedBy = models.CharField(max_length=255)
     # date = models.DateTimeField()
-    

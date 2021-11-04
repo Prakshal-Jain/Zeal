@@ -9,7 +9,6 @@ from .serializer import EventSerializer
 
 # Create your views here.
 
-
 class CreateEvent(APIView):
     def post(self, request):
         serializer = EventSerializer(data=request.data)

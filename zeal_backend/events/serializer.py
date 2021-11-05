@@ -13,8 +13,10 @@ class OrganizerEventSerializer(serializers.ModelSerializer):
 
         fields = ['id', 'name', 'description', 'website', 'startDate', 'endDate', 'owner','logo','email', 'phone', 'created','participants']
 
-        def get_participants(self, obj):
-            return len(obj.participants.all())
+
+       
+        # def get_participants(self, obj):
+        #     return len(obj.participants.all())
         
         def create(self, validated_data):
             return OrganizerEventModel.objects.create(**validated_data)

@@ -19,7 +19,7 @@ class Event(models.Model):
     start = models.DateTimeField(blank=False)
     end = models.DateTimeField(blank=False)
     owner = models.ForeignKey(User, related_name="events", on_delete=models.CASCADE, null=True)
-    //logo = models.ImageField(upload_to ='event_logos/', default='event_logos/default_event.png', blank=True, null=True)
+    logo = models.ImageField(upload_to ='event_logos/', default='event_logos/default_event.png', blank=True, null=True)
     email = models.EmailField(blank=False)
     phone = models.CharField(blank=True, max_length=20)
     created = models.DateTimeField(auto_now_add=True, null=True)

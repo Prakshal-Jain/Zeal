@@ -1,11 +1,11 @@
 from django.db.models import fields
 from rest_framework import serializers
-from .models import Event
+from .models import OrganizerEventModel, EventTeamModel
 
 
-class EventSerializer(serializers.ModelSerializer):
+class EventOrganizerSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Event
+        model = OrganizerEventModel
         fields = [
             'id',
             'name', 

@@ -13,7 +13,7 @@ RUN apt-get install -y npm
 
 COPY . .
 
-RUN npm install --prefix ./zeal_frontend
+RUN npm ci --prefix ./zeal_frontend
 RUN npm rebuild node-sass --prefix ./zeal_frontend
 
 RUN npm --prefix ./zeal_frontend run build

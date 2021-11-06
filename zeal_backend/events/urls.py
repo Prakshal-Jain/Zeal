@@ -12,7 +12,7 @@ router.register("organizer_past", OrganizerPastEventView, "organizer_past")
 # router.register('organizer_participant_list', OrganizerParticipantsListView, 'organizer_participant_list')
 # router.register('organizer_list_teams', OrganizerTeamListView, 'organizer_list_teams')
 
-# router.register('participant_join', ParticipantEventJoinView, 'participant_join')
+router.register('participant_join', ParticipantEventJoinView, 'participant_join')
 # router.register('participant_leave_event', ParticipantEventLeaveView, 'participant_leave_event')
 # router.register('participant_ongoing', ParticipantEventOngoingView, 'participant_ongoing')
 # router.register('participant_past', ParticipantEventPastView, 'participant_past')

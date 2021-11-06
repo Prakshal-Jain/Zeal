@@ -16,9 +16,9 @@ class OrganizerEventModel(models.Model):
     website = models.CharField(max_length=200, blank=True)
     start = models.DateTimeField(blank=False)
     end = models.DateTimeField(blank=False)
-    owner = models.ForeignKey(
-        User, related_name="events", on_delete=models.CASCADE, null=True
-    )
+    # owner = models.ForeignKey(
+    #     User, related_name="events", on_delete=models.CASCADE, null=True
+    # )
     logo = models.ImageField(
         upload_to="event_logos/",
         default="event_logos/default_event.png",

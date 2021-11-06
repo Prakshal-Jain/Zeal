@@ -9,6 +9,8 @@ import Profile from "./pages/Profile";
 import { Routes } from "./routes";
 import ForgotPassword from "./pages/ForgotPassword";
 import Contact from "./pages/ContactForm"
+import Event from "./pages/Events"
+import { RouteWithSidebar } from "./components/RouteComponents"
 
 // Required in index.js to provide routing.
 class Router extends Component {
@@ -27,6 +29,7 @@ class Router extends Component {
                 <Route exact path={Routes.ForgotPassword.path}><ForgotPassword /></Route>
                 <Route exact path={Routes.Contact.path}><Contact /></Route>
                 <Route exact path={Routes.Profile.path}><Profile /></Route>
+                <RouteWithSidebar exact path={Routes.Events.path} component={Event} />
             </Switch>
         )
     }

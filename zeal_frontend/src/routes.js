@@ -5,5 +5,6 @@ export const Routes = {
     SignIn: {path: "/signin"},
     Profile: {path: "/profile"},
     ForgotPassword: {path: "/forgot_password"},
-    Contact: {path: "/contact"}
+    Contact: {path: "/contact"},
+    Events: {path: "/events"},
 };

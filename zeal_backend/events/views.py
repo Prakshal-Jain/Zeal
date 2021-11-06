@@ -12,7 +12,7 @@ from events.serializers import (
     EventTeamOwnerSerializer,
     EventOrganizerTeamSerializer,
 )
-from django.contrib.auth.models import User
+from users.models import User
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework import pagination
@@ -63,9 +63,9 @@ class OrganizerOngoingUpcomingEventView(viewsets.ModelViewSet):
         return Response(serializer.data)
 
     def post(self, request, *args, **kwargs):
-        token = request.COOKIES.get('jwt')
-        payload = jwt.decode(token,'secret',algorithms=['HS256'])
-        user = (User.objects.get(id=payload['id']))
+        token = request.COOKIES.get("jwt")
+        payload = jwt.decode(token, "secret", algorithms=["HS256"])
+        user = User.objects.get(id=payload["id"])
 
         if request.user is not None:
             print("ID" + str(request.user))
@@ -114,12 +114,19 @@ class ParticipantEventJoinView(viewsets.ModelViewSet):
     lookup_field = "name"
     filter_backends = (filters.SearchFilter,)
 
-
     def put(self, request):
         my_date = datetime.now()
         data = request.data
-        token = request.COOKIES.get('jwt')
-        payload = jwt.decode(token,'secret',algorithms=['HS256'])
-        user = (User.objects.get(id=payload['id']))
+        token = request.COOKIES.get("jwt")
+        print("TOKEN:", token)
+        payload = jwt.decode(token, "secret", algorithms=["HS256"])
+        user = User.objects.get(id=payload["id"])
+        eventID = data["id"]
 
-        
+        print(payload)
+        if user is None:
+            return Response("no user found")
+        eventToChange = OrganizerEventModel.objects.filter(id=eventID).first()
+        eventToChange.participants.add(user)
+
+        return Response("eventToChange.data")

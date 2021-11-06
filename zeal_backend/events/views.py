@@ -19,6 +19,7 @@ from rest_framework import pagination
 from rest_framework import filters
 from datetime import datetime
 from django.shortcuts import get_object_or_404
+import jwt
 
 
 class EventsPagination(pagination.PageNumberPagination):
@@ -29,7 +30,7 @@ class OrganizerOngoingUpcomingEventView(viewsets.ModelViewSet):
 
     # permission_classes = [
     #     permissions.IsAuthenticated
-    # ]
+    # ]gi
     serializer_class = OrganizerEventSerializer
     pagination_class = EventsPagination
     paginate_by = 1
@@ -62,12 +63,10 @@ class OrganizerOngoingUpcomingEventView(viewsets.ModelViewSet):
         return Response(serializer.data)
 
     def post(self, request, *args, **kwargs):
-        print(str(request.data) + "REQUEST")
-        data = request.data
-        email = data["email"]
-        user = User.objects.filter(email=email).first()
-        user = request.user
-        print(str(user))
+        token = request.COOKIES.get('jwt')
+        payload = jwt.decode(token,'secret',algorithms=['HS256'])
+        user = (User.objects.get(id=payload['id']))
+
         if request.user is not None:
             print("ID" + str(request.user))
         else:
@@ -115,30 +114,12 @@ class ParticipantEventJoinView(viewsets.ModelViewSet):
     lookup_field = "name"
     filter_backends = (filters.SearchFilter,)
 
-    def get_queryset(self):
-        my_date = datetime.now()
-        # Filter out user if they are already signed up on event --> exclude
-        # allobjects =
-        data = self.request.data
-        user = User.objects.filter(email=data["email"]).first()
-        return (
-            OrganizerEventModel.objects.all()
-            .exclude(participants__in=[user])
-            .exclude(owner=user)
-            .filter(end__gte=my_date)
-            .order_by("-start")
-        )
 
     def put(self, request):
+        my_date = datetime.now()
         data = request.data
-        email = data["email"]
-        eventID = data["eventID"]
-        user = User.objects.filter(email=email).first()
-        all_events = (
-            OrganizerEventModel.objects.all()
-            .exclude(participants__in=[user])
-            .exclude(owner=user)
-        )
-        eventToChange = all_events.filter(id=eventID).first()
-        eventToChange.participants += user
-        return Response("added")
+        token = request.COOKIES.get('jwt')
+        payload = jwt.decode(token,'secret',algorithms=['HS256'])
+        user = (User.objects.get(id=payload['id']))
+
+        

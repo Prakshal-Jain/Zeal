@@ -118,15 +118,15 @@ class ParticipantEventJoinView(viewsets.ModelViewSet):
         my_date = datetime.now()
         data = request.data
         token = request.COOKIES.get("jwt")
-        print("TOKEN:", token)
         payload = jwt.decode(token, "secret", algorithms=["HS256"])
         user = User.objects.get(id=payload["id"])
         eventID = data["id"]
 
-        print(payload)
-        if user is None:
-            return Response("no user found")
         eventToChange = OrganizerEventModel.objects.filter(id=eventID).first()
-        eventToChange.participants.add(user)
+        all = eventToChange.participants.all()
+        if user in all:
+            r = Response("You've already joined this event")
+            r.status_code = 404
+            return r
 
-        return Response("eventToChange.data")
+        return Response("Event Joined")

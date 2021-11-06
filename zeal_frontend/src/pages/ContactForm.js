@@ -1,11 +1,12 @@
 import React from "react";
 import { Col, Row, Card, Image, Button, Container, Navbar, Nav, Alert, Form, InputGroup } from '@themesberg/react-bootstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faExternalLinkAlt, faUserAlt, faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { faExternalLinkAlt, faUserAlt, faEnvelope, faLightbulb } from "@fortawesome/free-solid-svg-icons";
 import { HashLink } from 'react-router-hash-link';
 import { Link } from 'react-router-dom';
 import ZealHero from '../assets/images/zeal-logo-withoutBg.png'
 import { Routes } from "../routes";
+import axios from "axios";
 
 
 class Contact extends React.Component {
@@ -15,6 +16,7 @@ class Contact extends React.Component {
             credentials: {
                 "username": null,
                 "email": null,
+                "reason": null,
                 "message": null,
             },
             errors: [],
@@ -25,6 +27,14 @@ class Contact extends React.Component {
         var credential = this.state.credentials
         credential[key] = value
         this.setState({ credentials: credential })
+    }
+
+    validateCredentials = async () => {
+        axios.post('/api/contact', this.state.credentials).then((response) => {
+            if (response.status === 200) {
+                this.setState({redirect: true})
+            }
+        })
     }
 
     renderNavBar = () => {
@@ -81,16 +91,28 @@ class Contact extends React.Component {
                                                 <InputGroup.Text>
                                                     <FontAwesomeIcon icon={faEnvelope} />
                                                 </InputGroup.Text>
-                                                <Form.Control autoFocus required type="text" placeholder="Enter Email" onChange={(event) => this.setCredentials("email", event.target.value)} />
+                                                <Form.Control required type="text" placeholder="Enter Email" onChange={(event) => this.setCredentials("email", event.target.value)} />
+                                            </InputGroup>
+                                        </Form.Group>
+
+                                        <Form.Group id="reason" className="mb-4">
+                                            <Form.Label>Reason for Contact</Form.Label>
+                                            <InputGroup>
+                                                <InputGroup.Text>
+                                                    
+                                                </InputGroup.Text>
+                                                <Form.Control required type="text" placeholder="" onChange={(event) => this.setCredentials("reason", event.target.value)} />
                                             </InputGroup>
                                         </Form.Group>
 
                                         <Form.Group id="message" className="mb-4">
                                         <Form.Label>Message</Form.Label>
                                             <Form.Control 
+                                                required
                                                 as="textarea"
                                                 placeholder=""
                                                 style={{ height: '100px'}}
+                                                onChange={(event) => this.setCredentials("message", event.target.value)}
                                             />
                                         </Form.Group>
 

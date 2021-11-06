@@ -28,7 +28,6 @@ class ForgotPassword extends Component {
             }
         })
     }
-    
 
     setCredentials = (key, value) => {
         var credential = this.state.credentials

@@ -2,22 +2,23 @@ from django.contrib.auth.models import User
 from django.shortcuts import render
 from django.http import HttpResponse
 
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import (
-    status,
-    viewsets,
-    permissions,
-    exceptions,
-    pagination,
-    filters,
+from django.http.response import HttpResponse
+from .models import OrganizerEventModel, EventTeamModel
+from rest_framework import status, viewsets, permissions
+from events.serializers import (
+    OrganizerEventSerializer,
+    EventParticipantSerializer,
+    EventTeamOthersSerializer,
+    EventTeamOwnerSerializer,
+    EventOrganizerTeamSerializer,
 )
+from django.contrib.auth.models import User
+from rest_framework.response import Response
 from rest_framework.decorators import action
-
-from events.models import EventTeamModel, OrganizerEventModel
-from events.serializer import OrganizerEventSerializer
-
+from rest_framework import pagination
+from rest_framework import filters
 from datetime import datetime
+from django.shortcuts import get_object_or_404
 
 
 class EventsPagination(pagination.PageNumberPagination):
@@ -42,7 +43,7 @@ class OrganizerOngoingUpcomingEventView(viewsets.ModelViewSet):
             self.request.user.events.all().filter(end__gte=my_date).order_by("-start")
         )
 
-    def post(self, request):
+    def put(self, request):
 
         data = request.data
         all_objects = OrganizerEventModel.objects.filter(id=data["id"]).first()
@@ -58,6 +59,25 @@ class OrganizerOngoingUpcomingEventView(viewsets.ModelViewSet):
 
         all_objects.save()
         serializer = OrganizerEventSerializer(all_objects)
+        return Response(serializer.data)
+
+    def post(self, request, *args, **kwargs):
+        print(str(request.data) + "REQUEST")
+        data = request.data
+        email = data["email"]
+        user = User.objects.filter(email=email).first()
+        user = request.user
+        print(str(user))
+        if request.user is not None:
+            print("ID" + str(request.user))
+        else:
+            print("NONE")
+
+        # if user is None:
+        #   raise AuthenticationFailed('user not found!')
+        serializer = OrganizerEventSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save(owner=user)
         return Response(serializer.data)
 
     # def perform_create(self, serializer):
@@ -80,8 +100,8 @@ class OrganizerPastEventView(viewsets.ModelViewSet):
         print("works")
 
 
+# below are participants
 
-# below are participants 
 
 class ParticipantEventJoinView(viewsets.ModelViewSet):
     # permission_classes = [
@@ -91,11 +111,20 @@ class ParticipantEventJoinView(viewsets.ModelViewSet):
     queryset = OrganizerEventModel.objects.all()
     paginate_by = 1
     pagination_class = EventsPagination
-    search_fields = ['name']
-    lookup_field = 'name'
+    search_fields = ["name"]
+    lookup_field = "name"
     filter_backends = (filters.SearchFilter,)
 
     def get_queryset(self):
         my_date = datetime.now()
         # Filter out user if they are already signed up on event --> exclude
-        return OrganizerEventModel.objects.all().exclude(participants__in=[self.request.user]).exclude(owner=self.request.user).filter(end__gte=my_date).order_by('-start')
+        # allobjects =
+        data = self.request.data
+        user = User.objects.filter(email=data["email"]).first()
+        return (
+            OrganizerEventModel.objects.all()
+            .exclude(participants__in=[user])
+            .exclude(owner=user)
+            .filter(end__gte=my_date)
+            .order_by("-start")
+        )

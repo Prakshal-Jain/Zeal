@@ -50,7 +50,7 @@ urlpatterns = [
     path('api/',include('users.urls')),
     path('test/', test),
     path('', TemplateView.as_view(template_name='index.html')),
-    path('event/', include('events.urls'))
+    path('events/', include('events.urls'))
     # path('upload/', views.UploadImage)
 ]
 

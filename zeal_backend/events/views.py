@@ -2,60 +2,18 @@ from django.contrib.auth.models import User
 from django.shortcuts import render
 from django.http import HttpResponse
 
-from rest_framework.views import APIView
+from django.http.response import HttpResponse
+from .models import OrganizerEventModel, EventTeamModel
+from rest_framework import status, viewsets, permissions
+from events.serializers import OrganizerEventSerializer, EventParticipantSerializer, EventTeamOthersSerializer, EventTeamOwnerSerializer, EventOrganizerTeamSerializer
+from django.contrib.auth.models import User
 from rest_framework.response import Response
-from rest_framework import (
-    status,
-    viewsets,
-    permissions,
-    exceptions,
-    pagination,
-    filters,
-)
 from rest_framework.decorators import action
-
-from events.models import EventTeamModel, OrganizerEventModel
-from events.serializer import OrganizerEventSerializer
-
+from rest_framework import pagination
+from rest_framework import filters
 from datetime import datetime
+from django.shortcuts import get_object_or_404
 
-"""
-Create your views here.
-
-class OrganizerEventView(APIView):
-
-    serializer_class = OrganizerEventSerializer
-
-    def get_queryset(self):
-        return OrganizerEventModel.objects.all()
-
-    def get(self, request):
-        details = self.get_queryset()
-        serializer = OrganizerEventSerializer(details, many=True)
-
-        return Response(serializer.data)
-
-    def post(self, request):
-
-        serializer = OrganizerEventSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-
-        return Response(serializer.data)
-
-
-class EventTeamView(APIView):
-    serializer_class = EventTeamSerializer
-
-    def get_queryset(self):
-        return EventTeamModel.objects.all()
-
-    def get(self, request):
-        details = self.get_queryset()
-        serializer = EventTeamSerializer(details, many=True)
-
-        return Response(serializer.data)
-"""
 
 
 class EventsPagination(pagination.PageNumberPagination):
@@ -80,7 +38,7 @@ class OrganizerOngoingUpcomingEventView(viewsets.ModelViewSet):
             self.request.user.events.all().filter(end__gte=my_date).order_by("-start")
         )
 
-    def post(self, request):
+    def put(self, request):
 
         data = request.data
         all_objects = OrganizerEventModel.objects.filter(id=data["id"]).first()
@@ -96,6 +54,25 @@ class OrganizerOngoingUpcomingEventView(viewsets.ModelViewSet):
 
         all_objects.save()
         serializer = OrganizerEventSerializer(all_objects)
+        return Response(serializer.data)
+
+    def post(self,request,*args,**kwargs):
+        print(str(request.data)+"REQUEST");
+        data = request.data
+        email = data['email']
+        #user = User.objects.filter(email = email).first()
+        user = request.user
+        print(str(user))
+        if request.user is not None:
+            print("ID" + str(request.user))
+        else:
+            print("NONE")
+
+        #if user is None:
+         #   raise AuthenticationFailed('user not found!')
+        serializer = OrganizerEventSerializer(data = request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save(owner = user)
         return Response(serializer.data)
 
     # def perform_create(self, serializer):

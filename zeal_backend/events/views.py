@@ -128,3 +128,17 @@ class ParticipantEventJoinView(viewsets.ModelViewSet):
             .filter(end__gte=my_date)
             .order_by("-start")
         )
+
+    def put(self, request):
+        data = request.data
+        email = data["email"]
+        eventID = data["eventID"]
+        user = User.objects.filter(email=email).first()
+        all_events = (
+            OrganizerEventModel.objects.all()
+            .exclude(participants__in=[user])
+            .exclude(owner=user)
+        )
+        eventToChange = all_events.filter(id=eventID).first()
+        eventToChange.participants += user
+        return Response("added")

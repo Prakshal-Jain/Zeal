@@ -28,9 +28,6 @@ class EventsPagination(pagination.PageNumberPagination):
 
 class OrganizerOngoingUpcomingEventView(viewsets.ModelViewSet):
 
-    # permission_classes = [
-    #     permissions.IsAuthenticated
-    # ]gi
     serializer_class = OrganizerEventSerializer
     pagination_class = EventsPagination
     paginate_by = 1
@@ -89,19 +86,6 @@ class OrganizerOngoingUpcomingEventView(viewsets.ModelViewSet):
         return Response({"data": "Event deleted successfully..."})
 
 
-class OrganizerPastEventView(viewsets.ModelViewSet):
-    serializer_class = OrganizerEventSerializer
-
-    def get_queryset(self):
-        my_date = datetime.now()
-
-    def get(self, request):
-        print("works")
-
-
-# below are participants
-
-
 class ParticipantEventJoinView(viewsets.ModelViewSet):
     # permission_classes = [
     #     permissions.IsAuthenticated
@@ -130,8 +114,24 @@ class ParticipantEventJoinView(viewsets.ModelViewSet):
             return r
 
         eventToChange.participants.add(user)
-        
+
         return Response("Event Joined")
+
+
+class OrganizerParticipantsListView(viewsets.ModelViewSet):
+    serializer_class = EventParticipantSerializer
+
+    def get_queryset(self):
+        token = self.request.COOKIES.get("jwt")
+        payload = jwt.decode(token, "secret", algorithms=["HS256"])
+        user = User.objects.get(id=payload["id"])
+        # event_id = self.request.query_params.get("event_id")
+        data = self.request.data
+        id = data["id"]
+        print(id)
+        event = OrganizerEventModel.objects.filter(owner = user).first()
+        print(event)
+        return event.participants.all()
 
 
 class ParticipantEventLeaveView(viewsets.ModelViewSet):
@@ -160,5 +160,5 @@ class ParticipantEventLeaveView(viewsets.ModelViewSet):
             return r
 
         eventToChange.participants.remove(user)
-        
+
         return Response("Left Event")

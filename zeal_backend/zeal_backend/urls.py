@@ -27,6 +27,8 @@ from django import views
 from django.conf import settings
 import psycopg2
 
+
+
 def test(request):
     print('testing database...')
     conn = psycopg2.connect(db_config)
@@ -48,6 +50,7 @@ urlpatterns = [
     path('api/',include('users.urls')),
     path('test/', test),
     path('', TemplateView.as_view(template_name='index.html')),
+    path('events/', include('events.urls'))
     # path('upload/', views.UploadImage)
 ]
 

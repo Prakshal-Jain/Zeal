@@ -129,4 +129,36 @@ class ParticipantEventJoinView(viewsets.ModelViewSet):
             r.status_code = 404
             return r
 
+        eventToChange.participants.add(user)
+        
         return Response("Event Joined")
+
+
+class ParticipantEventLeaveView(viewsets.ModelViewSet):
+
+    serializer_class = OrganizerEventSerializer
+    queryset = OrganizerEventModel.objects.all()
+    paginate_by = 1
+    pagination_class = EventsPagination
+    search_fields = ["name"]
+    lookup_field = "name"
+    filter_backends = (filters.SearchFilter,)
+
+    def put(self, request):
+        my_date = datetime.now()
+        data = request.data
+        token = request.COOKIES.get("jwt")
+        payload = jwt.decode(token, "secret", algorithms=["HS256"])
+        user = User.objects.get(id=payload["id"])
+        eventID = data["id"]
+
+        eventToChange = OrganizerEventModel.objects.filter(id=eventID).first()
+        all = eventToChange.participants.all()
+        if user not in all:
+            r = Response("You've already left this event")
+            r.status_code = 404
+            return r
+
+        eventToChange.participants.remove(user)
+        
+        return Response("Left Event")

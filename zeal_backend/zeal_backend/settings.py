@@ -165,8 +165,6 @@ CORS_ALLOW_CREDENTIALS = True
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
 
-# Activate Django-Heroku.
-django_heroku.settings(locals())
 
 
 # SMTP Configuration (for sending email for password reset)
@@ -179,3 +177,6 @@ EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 
 
 APPEND_SLASH = False
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())

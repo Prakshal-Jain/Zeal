@@ -14,7 +14,10 @@ import {
 } from "@themesberg/react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { faUserAlt, faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import {
+  faUserAlt,
+  faEnvelope,
+} from "@fortawesome/free-solid-svg-icons";
 import { HashLink } from "react-router-hash-link";
 import { Link } from "react-router-dom";
 import ZealHero from "../assets/images/zeal-logo-withoutBg.png";
@@ -173,33 +176,6 @@ class Contact extends React.Component {
                         onChange={(event) =>
                           this.setCredentials("message", event.target.value)
                         }
-                      />
-                    </Form.Group>
-
-                    <Form.Group id="email" className="mb-4">
-                      <Form.Label>Email</Form.Label>
-                      <InputGroup>
-                        <InputGroup.Text>
-                          <FontAwesomeIcon icon={faEnvelope} />
-                        </InputGroup.Text>
-                        <Form.Control
-                          autoFocus
-                          required
-                          type="text"
-                          placeholder="Enter Email"
-                          onChange={(event) =>
-                            this.setCredentials("email", event.target.value)
-                          }
-                        />
-                      </InputGroup>
-                    </Form.Group>
-
-                    <Form.Group id="message" className="mb-4">
-                      <Form.Label>Message</Form.Label>
-                      <Form.Control
-                        as="textarea"
-                        placeholder=""
-                        style={{ height: "100px" }}
                       />
                     </Form.Group>
 

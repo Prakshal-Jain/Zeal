@@ -32,6 +32,7 @@ class ForgotPassword extends Component {
     };
   }
 
+
   validateCredentials = async () => {
     axios.post("/api/forgot", this.state.credentials).then((response) => {
       if (response.status === 200) {

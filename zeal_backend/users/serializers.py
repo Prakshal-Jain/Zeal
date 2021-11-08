@@ -7,6 +7,7 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         # not sure if profile pic should be in fields
         fields = ['id', 'name', 'email', 'password', 'username', 'profile_pic']
+        
 
         # write extra properties for fields here
         extra_kwargs = {

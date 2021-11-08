@@ -56,7 +56,7 @@ const Profile = () => {
                 <Row>
                   <Col>
                     <Card.Img
-                      src={user.profile_pic}
+                      src={ProfileImg}
                       alt="Neil Portrait"
                       className="user-avatar small-avatar rounded-circle"
                     />

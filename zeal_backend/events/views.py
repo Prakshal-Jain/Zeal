@@ -119,7 +119,7 @@ class ParticipantEventJoinView(viewsets.ModelViewSet):
 
 
 class OrganizerParticipantsListView(viewsets.ModelViewSet):
-    serializer_class = EventParticipantSerializer
+    serializer_class = OrganizerEventSerializer
 
     def get_queryset(self):
         token = self.request.COOKIES.get("jwt")
@@ -128,11 +128,9 @@ class OrganizerParticipantsListView(viewsets.ModelViewSet):
         # event_id = self.request.query_params.get("event_id")
         data = self.request.data
         id = data["id"]
-        print(id)
-        event = OrganizerEventModel.objects.filter(owner = user).first()
-        print(event)
-        return event.participants.all()
-
+        
+        event = OrganizerEventModel.objects.filter(id=id)
+        return event
 
 class ParticipantEventLeaveView(viewsets.ModelViewSet):
 
@@ -151,7 +149,7 @@ class ParticipantEventLeaveView(viewsets.ModelViewSet):
         payload = jwt.decode(token, "secret", algorithms=["HS256"])
         user = User.objects.get(id=payload["id"])
         eventID = data["id"]
-
+        print(eventID)
         eventToChange = OrganizerEventModel.objects.filter(id=eventID).first()
         all = eventToChange.participants.all()
         if user not in all:

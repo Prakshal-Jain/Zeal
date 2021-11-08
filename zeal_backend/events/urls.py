@@ -3,16 +3,10 @@ from .views import *
 
 router = routers.DefaultRouter()
 
-router.register(
-    "organizer_ongoing_upcoming",
-    OrganizerOngoingUpcomingEventView,
-    basename="organizer_ongoing_upcoming",
-)
-router.register("List", OrganizerParticipantsListView, "List")
+router.register("create", OrganizerOngoingUpcomingEventView,basename="create")
+router.register("list", OrganizerParticipantsListView, "list")
 router.register("join", ParticipantEventJoinView, "join")
-router.register(
-    "leave", ParticipantEventLeaveView, "leave"
-)
+router.register("leave", ParticipantEventLeaveView, "leave")
 
 
 urlpatterns = router.urls

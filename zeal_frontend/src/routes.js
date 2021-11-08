@@ -8,4 +8,5 @@ export const Routes = {
   Contact: { path: "/contact" },
   Events: { path: "/events" },
   EventDetails: { path: "/event-details" },
+  ResetPassword: { path: "/reset" },
 };

@@ -38,3 +38,5 @@ __pycache__/
 
 # Aleena's always problematic so,
 /shell
+/events/migrations
+/users/migrations

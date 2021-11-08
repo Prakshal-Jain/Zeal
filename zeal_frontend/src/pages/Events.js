@@ -9,21 +9,22 @@ import {
   Alert,
   Form,
   InputGroup,
+  Container,
 } from "@themesberg/react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Datetime from "react-datetime";
 import moment from "moment-timezone";
 import { faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Routes } from "../routes";
 import axios from "axios";
+import EventDetails from "./EventDetails";
 
 class Events extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      redirect: false,
-      redirectIndex: 0,
+      selectedIndex: 0,
       event: {
         name: "",
         description: "",
@@ -265,58 +266,63 @@ class Events extends React.Component {
       );
     }
 
-    return this.state.all_events.map((event, index) => (
-      <div>
-        <Row
-          className="mb-2"
-          key={`join_event-${index}`}
-          onClick={() =>
-            this.setState({ redirect: true, redirectIndex: index })
-          }
-        >
+    return (
+      <Container>
+        <Row>
           <Col>
-            <Card>
-              <Row className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
-                <Col className={"pointer_cursor"} xs={9}>
-                  <Card.Body>
-                    <h5 className={"mb-md-0"}>{event.name}</h5>
-                    <div className={"small"}>
-                      ({moment(event.start).format("MM/DD/YYYY HH:mm")}){" "}
-                      <b>-</b> ({moment(event.end).format("MM/DD/YYYY HH:mm")})
-                    </div>
-                  </Card.Body>
-                </Col>
-                <Col xs={3} className={"d-flex justify-content-end"}>
-                  {event.logo != null ? (
-                    <Card.Img
-                      src={event.logo}
-                      alt={event.name}
-                      className="user-avatar small-avatar mx-4"
-                    />
-                  ) : (
-                    ""
-                  )}
-                </Col>
-              </Row>
-            </Card>
+            <h2>Events</h2>
+            <hr />
+            {this.state.all_events.map((event, index) => (
+              <div>
+                <Row
+                  className="mb-2"
+                  key={`join_event-${index}`}
+                  onClick={() => this.setState({ selectedIndex: index })}
+                >
+                  <Col>
+                    <Card>
+                      <Row className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
+                        <Col className={"pointer_cursor"} xs={9}>
+                          <Card.Body>
+                            <h5 className={"mb-md-0"}>{event.name}</h5>
+                            <div className={"small"}>
+                              ({moment(event.start).format("MM/DD/YYYY HH:mm")}){" "}
+                              <b>-</b> (
+                              {moment(event.end).format("MM/DD/YYYY HH:mm")})
+                            </div>
+                          </Card.Body>
+                        </Col>
+                        <Col xs={3} className={"d-flex justify-content-end"}>
+                          {event.logo != null ? (
+                            <Card.Img
+                              src={event.logo}
+                              alt={event.name}
+                              className="user-avatar small-avatar mx-4"
+                            />
+                          ) : (
+                            ""
+                          )}
+                        </Col>
+                      </Row>
+                    </Card>
+                  </Col>
+                </Row>
+              </div>
+            ))}
+          </Col>
+          <Col>
+            <h2>Details</h2>
+            <hr />
+            <EventDetails
+              {...this.state.all_events[this.state.selectedIndex]}
+            ></EventDetails>
           </Col>
         </Row>
-      </div>
-    ));
+      </Container>
+    );
   };
 
   render() {
-    if (this.state.redirect) {
-      return (
-        <Redirect
-          push
-          to={{
-            pathname: "/event-details",
-            state: { ...this.state.all_events[this.state.redirectIndex] },
-          }}
-        />
-      );
-    }
     return (
       <div className={"m-5"}>
         <Tab.Container defaultActiveKey="create">

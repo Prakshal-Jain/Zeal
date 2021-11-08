@@ -156,11 +156,6 @@ export default function Sidebar(props = {}) {
                 icon={faUserAlt}
                 link={Routes.Profile.path}
               />
-              <NavItem
-                title="Sign Out"
-                icon={faSignOutAlt}
-                link={Routes.SignIn.path}
-              />
             </Nav>
           </div>
         </SimpleBar>

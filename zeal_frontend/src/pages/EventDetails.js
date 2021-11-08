@@ -22,6 +22,7 @@ class EventDetails extends React.Component {
         params: { event_id: this.props.id },
       })
       .then((res) => this.setState({ participants: res.data[0].participants }));
+    console.log(this.state);
   };
 
   joinEvent = async () => {

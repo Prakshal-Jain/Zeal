@@ -23,6 +23,7 @@ class Events extends React.Component {
     super(props);
     this.state = {
       redirect: false,
+      redirectIndex: 0,
       event: {
         name: "",
         description: "",
@@ -44,15 +45,17 @@ class Events extends React.Component {
   };
 
   getAllEvents = async () => {
-    axios.get("events/join/").then((res) =>
-      this.setState((currentState) => {
-        currentState.all_events = res.data.results;
-        return currentState;
-      })
-    );
+    axios
+      .get("events/join/")
+      .then((res) => this.setState({ all_events: res.data.results }));
   };
 
-  postEvent = async () => {};
+  postEvent = async () => {
+    axios
+      .post("events/create/", this.state.event)
+      .then((res) => console.log(res.data));
+    console.log(this.state);
+  };
 
   clearFields = () => {
     this.setState({
@@ -265,7 +268,9 @@ class Events extends React.Component {
         <Row
           className="mb-2"
           key={`join_event-${index}`}
-          onClick={() => this.setState({ redirect: true })}
+          onClick={() =>
+            this.setState({ redirect: true, redirectIndex: index })
+          }
         >
           <Col>
             <Card>
@@ -300,7 +305,15 @@ class Events extends React.Component {
 
   render() {
     if (this.state.redirect) {
-      return <Redirect push to="/event-details" />;
+      return (
+        <Redirect
+          push
+          to={{
+            pathname: "/event-details",
+            state: { ...this.state.all_events[this.state.redirectIndex] },
+          }}
+        />
+      );
     }
     return (
       <div className={"m-5"}>

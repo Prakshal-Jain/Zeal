@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route, Switch, Redirect, useHistory } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 
 // Import the pages
 import Homepage from "./pages/Homepage";

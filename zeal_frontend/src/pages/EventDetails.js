@@ -16,6 +16,10 @@ class EventDetails extends React.Component {
     }
   }
 
+  componentDidMount() {
+    this.getParticipants();
+  }
+
   getParticipants = async () => {
     await axios
       .get("events/list/", {

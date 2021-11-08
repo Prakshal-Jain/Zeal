@@ -49,30 +49,54 @@ class Contact extends React.Component {
         })
     }
 
-    renderNavBar = () => {
-        return (
-            <Navbar variant="dark" expand="lg" bg="dark" className="navbar-transparent navbar-theme-primary sticky-top">
-                <Container className="position-relative justify-content-between px-3">
-                    <Navbar.Brand className="me-lg-3 d-flex align-items-center">
-                        <Card.Link as={Link} to={Routes.Homepage.path}>
-                            <Image src={ZealHero} />
-                        </Card.Link>
-                    </Navbar.Brand>
+    // This is the navigation menu
 
-  renderNavBar = () => {
-    return (
-      <Navbar
-        variant="dark"
-        expand="lg"
-        bg="dark"
-        className="navbar-transparent navbar-theme-primary sticky-top"
-      >
-        <Container className="position-relative justify-content-between px-3">
-          <Navbar.Brand className="me-lg-3 d-flex align-items-center">
-            <Card.Link as={Link} to={Routes.Homepage.path}>
-              <Image src={ZealHero} />
-            </Card.Link>
-          </Navbar.Brand>
+    renderNavBar = () => {
+      return (
+        <Navbar
+          variant="dark"
+          expand="lg"
+          bg="dark"
+          className="navbar-transparent navbar-theme-primary sticky-top"
+        >
+          <Container className="position-relative justify-content-between px-3">
+            <Navbar.Brand className="me-lg-3 d-flex align-items-center">
+              <Card.Link as={Link} to={Routes.Homepage.path}>
+                <Image src={ZealHero} />
+              </Card.Link>
+            </Navbar.Brand>
+  
+            <div className="d-flex align-items-center">
+              <Navbar.Collapse id="navbar-default-primary">
+                <Nav className="navbar-nav-hover align-items-lg-center">
+                  <Nav.Link as={HashLink} to="#about">
+                    About
+                  </Nav.Link>
+                  <Nav.Link as={Link} to={Routes.SignIn.path}>
+                    Sign In
+                  </Nav.Link>
+                  <Nav.Link as={Link} to={Routes.SignUp.path}>
+                    Sign Up
+                  </Nav.Link>
+                  <Nav.Link as={Link} to="/">
+                    Support
+                  </Nav.Link>
+                  <Nav.Link
+                    as={Link}
+                    to={Routes.Contact.path}
+                    className="d-sm-none d-xl-inline"
+                  >
+                    Contact
+                  </Nav.Link>
+                </Nav>
+              </Navbar.Collapse>
+            </div>
+          </Container>
+        </Navbar>
+      );
+    };
+
+    // This is where the navigation menu ends....
 
     renderContactForm = () => {
         return (

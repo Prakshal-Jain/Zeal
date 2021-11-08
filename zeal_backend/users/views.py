@@ -94,20 +94,15 @@ class ForgotPasswordAPIView(APIView):
         #request contains email
         username = request.data['username']
 
-
-        
         user = User.objects.filter(username = username).first()
         #raise exception if user not found
         if user is None:
             raise AuthenticationFailed('User not found!')
         email = user.email
         
-
-
         #generate token(did this manually)
         token = ''.join(random.choice(string.ascii_uppercase)+string.digits for _ in range(12))
         PasswordReset.objects.create(email = email,token = token)
-
 
         #send email with token
         send_mail(
@@ -116,8 +111,6 @@ class ForgotPasswordAPIView(APIView):
             from_email = os.getenv('EMAIL_HOST_USER'),
             recipient_list = [email]
         )
-
-
 
         return Response(
             {
@@ -128,8 +121,6 @@ class ForgotPasswordAPIView(APIView):
 class ResetPasswordAPIView(APIView):
     def post(self, request):
         data = request.data
-
-
 
         password_reset = PasswordReset.objects.filter(token = data['token']).first()
         user = User.objects.filter(email = password_reset.email).first()
@@ -144,5 +135,28 @@ class ResetPasswordAPIView(APIView):
         return Response(
             {
                 'message':'Password sucessfully reset'
+            }
+        )
+
+class ContactAPIView(APIView):
+    def post(self, request):
+        data = request.data
+
+        name = data['username']
+        email = data['email']
+        reason = data['reason']
+        message = data['message']
+
+        #send email
+        send_mail(
+            subject = f"Message from {name}!",
+            message = f"RE: {reason}\n\n{message}\n\nName: {name}\nContact: {email}",
+            from_email = email,
+            recipient_list = [os.getenv('EMAIL_HOST_USER')]
+        )
+
+        return Response(
+            {
+                'message':"Thanks for contacting us! We'll get back to you shortly!"
             }
         )

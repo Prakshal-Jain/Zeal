@@ -151,34 +151,6 @@ class Contact extends React.Component {
                                             />
                                         </Form.Group>
 
-
-                    <Form.Group id="email" className="mb-4">
-                      <Form.Label>Email</Form.Label>
-                      <InputGroup>
-                        <InputGroup.Text>
-                          <FontAwesomeIcon icon={faEnvelope} />
-                        </InputGroup.Text>
-                        <Form.Control
-                          autoFocus
-                          required
-                          type="text"
-                          placeholder="Enter Email"
-                          onChange={(event) =>
-                            this.setCredentials("email", event.target.value)
-                          }
-                        />
-                      </InputGroup>
-                    </Form.Group>
-
-                    <Form.Group id="message" className="mb-4">
-                      <Form.Label>Message</Form.Label>
-                      <Form.Control
-                        as="textarea"
-                        placeholder=""
-                        style={{ height: "100px" }}
-                      />
-                    </Form.Group>
-
                     {this.state.errors.length > 0 ? (
                       <Alert variant="warning">
                         <ul>

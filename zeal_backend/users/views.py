@@ -112,7 +112,7 @@ class ForgotPasswordAPIView(APIView):
         #send email with token
         send_mail(
             subject = "Reset your Zeal password!",
-            message = 'Click this link <a href="http://localhost:3000/reset/?token='+ token + '">here</a> to reset your password!',
+            message = 'Click this link <a href="http://localhost:3000/#/reset/?token='+ token + '">here</a> to reset your password!',
             from_email = os.getenv('EMAIL_HOST_USER'),
             recipient_list = [email]
         )

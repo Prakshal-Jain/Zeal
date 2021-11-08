@@ -48,7 +48,9 @@ class ResetPassword extends Component {
     }
 
     postResetPassword = async () => {
-        axios.post("/api/reset", this.state.credentials).then((response) => {
+        var cred_copy = this.state.credentials
+        cred_copy["token"] = this.state.token
+        axios.post("/api/reset", cred_copy).then((response) => {
             if (response.status === 200) {
                 this.setState({ redirect: true });
             }

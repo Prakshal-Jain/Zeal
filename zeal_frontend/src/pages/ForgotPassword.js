@@ -114,7 +114,7 @@ class ForgotPassword extends Component {
                 >
                   <div className="mb-4 mb-lg-0 bg-white shadow-soft border rounded border-light p-4 p-lg-5 w-100 fmxw-500">
                     <div className="text-center text-md-center mb-4 mt-md-0">
-                      <h3 className="mb-0">Reset Password</h3>
+                      <h3 className="mb-0">Forgot Password</h3>
                     </div>
                     <Form className="mt-4">
                       <Form.Group id="username" className="mb-4">

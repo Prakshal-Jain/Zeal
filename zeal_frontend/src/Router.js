@@ -12,6 +12,7 @@ import Contact from "./pages/ContactForm";
 import Event from "./pages/Events";
 import { RouteWithSidebar } from "./components/RouteComponents";
 import EventDetails from "./pages/EventDetails";
+import ResetPassword from "./pages/ResetPassword";
 
 // Required in index.js to provide routing.
 class Router extends Component {
@@ -33,6 +34,9 @@ class Router extends Component {
         <Route exact path={Routes.Contact.path}>
           <Contact />
         </Route>
+        <Route exact path={Routes.ResetPassword.path}>
+          <ResetPassword {...this.props} />
+        </Route>
         <RouteWithSidebar
           exact
           path={Routes.Profile.path}
@@ -41,7 +45,7 @@ class Router extends Component {
         <RouteWithSidebar exact path={Routes.Events.path} component={Event} />
         <RouteWithSidebar
           exact
-          path={Routes.EventDetails.path}
+          path={{pathname: Routes.EventDetails.path, search: window.location.search}}
           component={EventDetails}
         />
       </Switch>

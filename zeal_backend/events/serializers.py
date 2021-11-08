@@ -9,7 +9,10 @@ class OrganizerEventSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'description', 'website', 'start', 'end', 'logo', 'email', 'phone', 'participants')
 
     def get_participants(self, obj):
-        return len(obj.participants.all())
+        participant_details = []
+        for participants in obj.participants.all():
+            participant_details.append({"id": participants.id ,"username": participants.username, "first_name": participants.first_name, "last_name": participants.last_name, "email": participants.email})
+        return participant_details
 
 class EventParticipantSerializer(serializers.ModelSerializer):
     participants = serializers.SerializerMethodField("get_username")

@@ -45,15 +45,17 @@ class Events extends React.Component {
   };
 
   getAllEvents = async () => {
-    axios
+    await axios
       .get("events/join/")
       .then((res) => this.setState({ all_events: res.data.results }));
+    console.log(this.state);
   };
 
   postEvent = async () => {
-    axios
+    await axios
       .post("events/create/", this.state.event)
       .then((res) => console.log(res.data));
+    await this.getAllEvents();
     console.log(this.state);
   };
 

@@ -1,18 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHome } from "@fortawesome/free-solid-svg-icons";
 import {
   Col,
   Row,
-  Breadcrumb,
   Card,
   Form,
   Button,
 } from "@themesberg/react-bootstrap";
 import axios from "axios";
-import { Link, useHistory } from "react-router-dom";
-import { Routes } from "../routes";
-import ProfileImg from "../assets/profile_images/Image.jpeg";
+import { useHistory } from "react-router-dom";
 
 const Profile = () => {
   const history = useHistory();
@@ -51,19 +46,6 @@ const Profile = () => {
         <Card.Body>
           <h5 className="mb-4">General information</h5>
           <Form>
-            <Row>
-              <Col className="mb-3">
-                <Row>
-                  <Col>
-                    <Card.Img
-                      src={ProfileImg}
-                      alt="Neil Portrait"
-                      className="user-avatar small-avatar rounded-circle"
-                    />
-                  </Col>
-                </Row>
-              </Col>
-            </Row>
             <Row>
               <Col md={6} className="mb-3">
                 <Form.Group id="fullName">
@@ -116,19 +98,7 @@ const Profile = () => {
     <div className={"m-3"}>
       <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
         <div className="d-block mb-4 mb-md-0">
-          <Breadcrumb
-            className="d-none d-md-inline-block"
-            listProps={{ className: "breadcrumb-dark breadcrumb-transparent" }}
-          >
-            <Breadcrumb.Item>
-              <Card.Link as={Link} to={Routes.Homepage.path}>
-                <FontAwesomeIcon icon={faHome} />
-              </Card.Link>
-            </Breadcrumb.Item>
-            <Breadcrumb.Item active>Profile</Breadcrumb.Item>
-          </Breadcrumb>
-          <h4>Profile</h4>
-          <p className="mb-0">Edit or view your profile.</p>
+          <h2>Profile</h2>
         </div>
       </div>
 

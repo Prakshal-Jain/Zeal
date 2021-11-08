@@ -127,7 +127,7 @@ class OrganizerParticipantsListView(viewsets.ModelViewSet):
         user = User.objects.get(id=payload["id"])
         # event_id = self.request.query_params.get("event_id")
         data = self.request.data
-        id = data["id"]
+        id = self.request.query_params.get("event_id")
         
         event = OrganizerEventModel.objects.filter(id=id)
         return event

@@ -280,7 +280,7 @@ class Events extends React.Component {
                   onClick={() => this.setState({ selectedIndex: index })}
                 >
                   <Col>
-                    <Card>
+                    <Card border={(this.state.selectedIndex === index) ? "success" : ""}>
                       <Row className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
                         <Col className={"pointer_cursor"} xs={9}>
                           <Card.Body>

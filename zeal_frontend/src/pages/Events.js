@@ -15,7 +15,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Datetime from "react-datetime";
 import moment from "moment-timezone";
 import { faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { Routes } from "../routes";
 import axios from "axios";
 import EventDetails from "./EventDetails";
@@ -24,6 +24,7 @@ class Events extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      redirect: false,
       error: false,
       showAlert: false,
       selectedIndex: 0,
@@ -45,6 +46,12 @@ class Events extends React.Component {
 
   componentDidMount = async () => {
     await this.getAllEvents();
+    try {      
+      await axios.get('/api/user')
+    } catch (error) {
+      console.log(error);
+      this.setState({redirect: true});
+    }
   };
 
   getAllEvents = async () => {
@@ -337,6 +344,9 @@ class Events extends React.Component {
   };
 
   render() {
+    if (this.state.redirect) {
+      return <Redirect to ='/'/>;
+    }
     return (
       <div className={"m-5"}>
         <Tab.Container defaultActiveKey="create">

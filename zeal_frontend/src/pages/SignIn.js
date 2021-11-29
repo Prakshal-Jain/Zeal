@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faUnlockAlt } from "@fortawesome/free-solid-svg-icons";
-import { faLinkedinIn, faGithub } from "@fortawesome/free-brands-svg-icons";
 import {
   Col,
   Row,
@@ -70,9 +69,6 @@ class SignIn extends Component {
           <div className="d-flex align-items-center">
             <Navbar.Collapse id="navbar-default-primary">
               <Nav className="navbar-nav-hover align-items-lg-center">
-                <Nav.Link as={HashLink} to="#about">
-                  About
-                </Nav.Link>
                 <Nav.Link as={Link} to={Routes.SignIn.path}>
                   Sign In
                 </Nav.Link>
@@ -100,7 +96,7 @@ class SignIn extends Component {
     return (
       <div>
         {this.renderNavBar()}
-        <main style={{ backgroundColor: "#262B40" }}>
+        <main style={{ backgroundColor: "#262B40", height: "100vh" }}>
           <section className="d-flex align-items-center my-5 mt-lg-6 mb-lg-5">
             <Container>
               <Row className="justify-content-center form-bg-image">
@@ -175,20 +171,7 @@ class SignIn extends Component {
                     <div className="mt-3 mb-4 text-center">
                       <span className="fw-normal">or</span>
                     </div>
-                    <div className="d-flex justify-content-center my-4">
-                      <Button
-                        variant="outline-light"
-                        className="btn-icon-only btn-pill text-facebook me-2"
-                      >
-                        <FontAwesomeIcon icon={faLinkedinIn} />
-                      </Button>
-                      <Button
-                        variant="outline-light"
-                        className="btn-icon-only btn-pil text-dark"
-                      >
-                        <FontAwesomeIcon icon={faGithub} />
-                      </Button>
-                    </div>
+
                     <div className="d-flex justify-content-center align-items-center mt-4">
                       <span className="fw-normal">
                         Forgot your password?

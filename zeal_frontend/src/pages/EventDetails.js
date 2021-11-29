@@ -8,6 +8,7 @@ import {
   Alert,
 } from "@themesberg/react-bootstrap";
 import axios from "axios";
+import moment from "moment-timezone";
 
 class EventDetails extends React.Component {
   constructor(props) {
@@ -38,7 +39,7 @@ class EventDetails extends React.Component {
       .get("events/list/", {
         params: { event_id: this.props.id },
       })
-      .then((res) => this.setState({ participants: res.data[0].participants }));
+      .then((res) => this.setState({ participants: (res.data.length > 0) ? res.data[0].participants : null }));
     console.log(this.state);
   };
 
@@ -164,28 +165,37 @@ class EventDetails extends React.Component {
               </Button>
             </Col>
           </Row>
-          <h4 className="mt-2">About</h4>
-          <p>{this.props.description}</p>
-          <h4 className="mt-4">Date</h4>
-          <p>
-            {this.props.start} - {this.props.end}
-          </p>
-          <h4 className="mt-4">Website</h4>
-          <p>{this.props.website}</p>
-          <h4 className="mt-4">Contact</h4>
-          <p>{this.props.phone}</p>
-          <h4 className="mt-4">Participants</h4>
-          {this.state.participants == null ? (
-            <p>None</p>
-          ) : (
-            this.state.participants.map((person, idx) => {
-              return (
+
+          {this.state.participants == null ?
+            ""
+            :
+            <Row>
+              <Col>
+                <h4 className="mt-2">About</h4>
+                <p>{this.props.description}</p>
+                <h4 className="mt-4">Date</h4>
                 <p>
-                  {person.first_name} {person.last_name} ({person.username})
+                  {moment(this.props.start).format("MM/DD/YYYY (hh:mm a)")} - {moment(this.props.end).format("MM/DD/YYYY (hh:mm a)")}
                 </p>
-              );
-            })
-          )}
+                <h4 className="mt-4">Website</h4>
+                <p><a href={this.props.website} target="_blank">{this.props.website}</a></p>
+                <h4 className="mt-4">Contact</h4>
+                <p>{this.props.phone}</p>
+                <h4 className="mt-4">Participants</h4>
+                {this.state.participants == null ? (
+                  <p>None</p>
+                ) : (
+                  this.state.participants.map((person, idx) => {
+                    return (
+                      <p>
+                        {person.first_name} {person.last_name} ({person.username})
+                      </p>
+                    );
+                  })
+                )}
+              </Col>
+            </Row>
+          }
         </Container>
       </>
     );

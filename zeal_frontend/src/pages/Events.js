@@ -15,7 +15,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Datetime from "react-datetime";
 import moment from "moment-timezone";
 import { faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { Routes } from "../routes";
 import axios from "axios";
 import EventDetails from "./EventDetails";
@@ -24,6 +24,9 @@ class Events extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      redirect: false,
+      error: false,
+      showAlert: false,
       selectedIndex: 0,
       event: {
         name: "",
@@ -43,6 +46,12 @@ class Events extends React.Component {
 
   componentDidMount = async () => {
     await this.getAllEvents();
+    try {      
+      await axios.get('/api/user')
+    } catch (error) {
+      console.log(error);
+      this.setState({redirect: true});
+    }
   };
 
   getAllEvents = async () => {
@@ -53,29 +62,14 @@ class Events extends React.Component {
   };
 
   postEvent = async () => {
-    await axios
-      .post("events/create/", this.state.event)
-      .then((res) => console.log(res.data));
-    await this.getAllEvents();
-    console.log(this.state);
-  };
-
-  clearFields = () => {
-    this.setState({
-      event: {
-        name: "",
-        description: "",
-        website: "",
-        start: null,
-        end: null,
-        logo: null,
-        email: "",
-        phone: "",
-        is_private: false,
-        get_participation_data: false,
-      },
-      all_events: null,
-    });
+    try {
+      await axios.post("events/create/", this.state.event);
+      this.setState({ showAlert: true });
+      await this.getAllEvents();
+    } catch (error) {
+      console.log(error);
+      this.setState({ error: true });
+    }
   };
 
   setEventFields = (key, value) => {
@@ -87,6 +81,29 @@ class Events extends React.Component {
   renderCreateForm = () => {
     return (
       <div>
+        <Alert show={this.state.showAlert} variant="success">
+          <div className="d-flex justify-content-between">
+          Succesfully created event {this.state.event.name}!
+            <Button
+              variant="close"
+              size="sm"
+              onClick={() => this.setState({ showAlert: false })}
+            />
+          </div>
+        </Alert>
+        <Alert
+          show={this.state.error}
+          variant="danger"
+        >
+          <div className="d-flex justify-content-between">
+            Failed to create event, please try again.
+            <Button
+              variant="close"
+              size="sm"
+              onClick={() => this.setState({ error: false })}
+            />
+          </div>
+        </Alert>
         <Card border="light" className="bg-white shadow-sm mb-4">
           <Card.Body>
             <h5 className="mb-4">General event information</h5>
@@ -98,7 +115,7 @@ class Events extends React.Component {
                     <Form.Control
                       required
                       type="text"
-                      placeholder="Enter your first name"
+                      placeholder="Enter your event name"
                       value={this.state.event.name}
                       onChange={(e) => {
                         this.setEventFields("name", e.target.value);
@@ -280,7 +297,11 @@ class Events extends React.Component {
                   onClick={() => this.setState({ selectedIndex: index })}
                 >
                   <Col>
-                    <Card>
+                    <Card
+                      border={
+                        this.state.selectedIndex === index ? "success" : ""
+                      }
+                    >
                       <Row className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
                         <Col className={"pointer_cursor"} xs={9}>
                           <Card.Body>
@@ -323,6 +344,9 @@ class Events extends React.Component {
   };
 
   render() {
+    if (this.state.redirect) {
+      return <Redirect to ='/'/>;
+    }
     return (
       <div className={"m-5"}>
         <Tab.Container defaultActiveKey="create">

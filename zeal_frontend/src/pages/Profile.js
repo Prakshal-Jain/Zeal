@@ -5,11 +5,13 @@ import {
   Card,
   Form,
   Button,
+  Modal,
 } from "@themesberg/react-bootstrap";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 
 const Profile = () => {
+  const [showModal, setShowModal] = useState(false);
   const history = useHistory();
   // The state hook for the user object.
   // We'll call setUser(newUser) to change the user (state), which will then trigger this component to rebuid
@@ -42,55 +44,71 @@ const Profile = () => {
 
   const render_profile_form = () => {
     return (
-      <Card border="light" className="bg-white shadow-sm mb-4">
-        <Card.Body>
-          <h5 className="mb-4">General information</h5>
-          <Form>
-            <Row>
-              <Col md={6} className="mb-3">
-                <Form.Group id="fullName">
-                  <Form.Label>Full Name</Form.Label>
-                </Form.Group>
-              </Col>
-              <Col md={6} className="mb-3">
-                {user.name}
-              </Col>
-            </Row>
-            <Row className="align-items-center">
-              <Col md={6} className="mb-3">
-                <Form.Group id="username">
-                  <Form.Label>Username</Form.Label>
-                </Form.Group>
-              </Col>
-              <Col md={6} className="mb-3">
-                {user.username}
-              </Col>
-            </Row>
-            <Row className="align-items-center">
-              <Col md={6} className="mb-3">
-                <Form.Group id="email">
-                  <Form.Label>Email</Form.Label>
-                </Form.Group>
-              </Col>
-              <Col md={6} className="mb-3">
-                {user.email}
-              </Col>
-            </Row>
+      <>
+        <Modal show={showModal}>
+          <Modal.Header>
+            <Modal.Title>Log out</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>Are you sure you want to log out?</Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={() => setShowModal(false)}>
+              Cancel
+            </Button>
+            <Button variant="primary" onClick={logout}>
+              Yes
+            </Button>
+          </Modal.Footer>
+        </Modal>
+        <Card border="light" className="bg-white shadow-sm mb-4">
+          <Card.Body>
+            <h5 className="mb-4">General information</h5>
+            <Form>
+              <Row>
+                <Col md={6} className="mb-3">
+                  <Form.Group id="fullName">
+                    <Form.Label>Full Name</Form.Label>
+                  </Form.Group>
+                </Col>
+                <Col md={6} className="mb-3">
+                  {user.name}
+                </Col>
+              </Row>
+              <Row className="align-items-center">
+                <Col md={6} className="mb-3">
+                  <Form.Group id="username">
+                    <Form.Label>Username</Form.Label>
+                  </Form.Group>
+                </Col>
+                <Col md={6} className="mb-3">
+                  {user.username}
+                </Col>
+              </Row>
+              <Row className="align-items-center">
+                <Col md={6} className="mb-3">
+                  <Form.Group id="email">
+                    <Form.Label>Email</Form.Label>
+                  </Form.Group>
+                </Col>
+                <Col md={6} className="mb-3">
+                  {user.email}
+                </Col>
+              </Row>
 
-            <Row>
-              <Col md={6} className="mb-3">
-                <Button
-                  variant="danger"
-                  size="sm"
-                  onClick={() => logout()}
-                >
-                  Logout
-                </Button>
-              </Col>
-            </Row>
-          </Form>
-        </Card.Body>
-      </Card>
+              <Row>
+                <Col md={6} className="mb-3">
+                  <Button
+                    variant="danger"
+                    size="sm"
+                    onClick={() => setShowModal(true)}
+                  >
+                    Logout
+                  </Button>
+                </Col>
+              </Row>
+            </Form>
+          </Card.Body>
+        </Card>
+      </>
     );
   };
 

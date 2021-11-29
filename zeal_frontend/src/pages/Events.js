@@ -46,11 +46,11 @@ class Events extends React.Component {
 
   componentDidMount = async () => {
     await this.getAllEvents();
-    try {      
+    try {
       await axios.get('/api/user')
     } catch (error) {
       console.log(error);
-      this.setState({redirect: true});
+      this.setState({ redirect: true });
     }
   };
 
@@ -58,14 +58,31 @@ class Events extends React.Component {
     await axios
       .get("events/join/")
       .then((res) => this.setState({ all_events: res.data.results }));
-    console.log(this.state);
   };
+
+  clearEventsFields = () => {
+    this.setState({
+      event: {
+        name: "",
+        description: "",
+        website: "",
+        start: null,
+        end: null,
+        logo: null,
+        email: "",
+        phone: "",
+        is_private: false,
+        get_participation_data: false,
+      },
+    })
+  }
 
   postEvent = async () => {
     try {
       await axios.post("events/create/", this.state.event);
       this.setState({ showAlert: true });
       await this.getAllEvents();
+      this.clearEventsFields();
     } catch (error) {
       console.log(error);
       this.setState({ error: true });
@@ -83,7 +100,7 @@ class Events extends React.Component {
       <div>
         <Alert show={this.state.showAlert} variant="success">
           <div className="d-flex justify-content-between">
-          Succesfully created event {this.state.event.name}!
+            Succesfully created event {this.state.event.name}!
             <Button
               variant="close"
               size="sm"
@@ -178,13 +195,13 @@ class Events extends React.Component {
                             value={
                               this.state.event.start
                                 ? moment(this.state.event.start).format(
-                                    "MM/DD/YYYY (hh:mm a)"
-                                  )
+                                  "MM/DD/YYYY (hh:mm a)"
+                                )
                                 : ""
                             }
                             placeholder="mm/dd/yyyy (hh:mm)"
                             onFocus={openCalendar}
-                            onChange={() => {}}
+                            onChange={() => { }}
                           />
                         </InputGroup>
                       )}
@@ -211,13 +228,13 @@ class Events extends React.Component {
                             value={
                               this.state.event.end
                                 ? moment(this.state.event.end).format(
-                                    "MM/DD/YYYY (hh:mm a)"
-                                  )
+                                  "MM/DD/YYYY (hh:mm a)"
+                                )
                                 : ""
                             }
                             placeholder="mm/dd/yyyy (hh:mm)"
                             onFocus={openCalendar}
-                            onChange={() => {}}
+                            onChange={() => { }}
                           />
                         </InputGroup>
                       )}
@@ -345,7 +362,7 @@ class Events extends React.Component {
 
   render() {
     if (this.state.redirect) {
-      return <Redirect to ='/'/>;
+      return <Redirect to='/' />;
     }
     return (
       <div className={"m-5"}>

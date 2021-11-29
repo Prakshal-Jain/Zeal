@@ -5,7 +5,6 @@ import {
   faUnlockAlt,
   faUserAlt,
 } from "@fortawesome/free-solid-svg-icons";
-import { faLinkedinIn, faGithub } from "@fortawesome/free-brands-svg-icons";
 import {
   Col,
   Row,
@@ -81,9 +80,6 @@ class SignUp extends Component {
           <div className="d-flex align-items-center">
             <Navbar.Collapse id="navbar-default-primary">
               <Nav className="navbar-nav-hover align-items-lg-center">
-                <Nav.Link as={HashLink} to="#about">
-                  About
-                </Nav.Link>
                 <Nav.Link as={Link} to={Routes.SignIn.path}>
                   Sign In
                 </Nav.Link>
@@ -264,20 +260,7 @@ class SignUp extends Component {
                     <div className="mt-3 mb-4 text-center">
                       <span className="fw-normal">or</span>
                     </div>
-                    <div className="d-flex justify-content-center my-4">
-                      <Button
-                        variant="outline-light"
-                        className="btn-icon-only btn-pill text-facebook me-2"
-                      >
-                        <FontAwesomeIcon icon={faLinkedinIn} />
-                      </Button>
-                      <Button
-                        variant="outline-light"
-                        className="btn-icon-only btn-pil text-dark"
-                      >
-                        <FontAwesomeIcon icon={faGithub} />
-                      </Button>
-                    </div>
+
                     <div className="d-flex justify-content-center align-items-center mt-4">
                       <span className="fw-normal">
                         Already have an account?

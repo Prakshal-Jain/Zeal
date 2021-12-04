@@ -38,17 +38,11 @@ class Homepage extends React.Component {
           <div className="d-flex align-items-center">
             <Navbar.Collapse id="navbar-default-primary">
               <Nav className="navbar-nav-hover align-items-lg-center">
-                <Nav.Link as={HashLink} to="#about">
-                  About
-                </Nav.Link>
                 <Nav.Link as={Link} to={Routes.SignIn.path}>
                   Sign In
                 </Nav.Link>
                 <Nav.Link as={Link} to={Routes.SignUp.path}>
                   Sign Up
-                </Nav.Link>
-                <Nav.Link as={Link} to="/">
-                  Support
                 </Nav.Link>
                 <Nav.Link
                   as={Link}
@@ -76,7 +70,7 @@ class Homepage extends React.Component {
             <Col xs={12} className="text-center">
               {/* Edit styling at: zeal_frontend/src/scss/volt/components/_icon-box.scss */}
               <h1 className="fw-bolder theme-gradient-text">ZEAL</h1>
-              <p className="fw-light mb-5 h5">Build High Performing Teams</p>
+              <p className="fw-light mb-5 h5">Events Simplified</p>
             </Col>
           </Row>
           <Row>
@@ -88,11 +82,6 @@ class Homepage extends React.Component {
                 to={Routes.SignUp.path}
               >
                 Sign Up
-              </Button>
-            </Col>
-            <Col>
-              <Button variant="outline-secondary" className="m-1">
-                Subscribe
               </Button>
             </Col>
           </Row>

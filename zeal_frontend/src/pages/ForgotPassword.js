@@ -67,17 +67,11 @@ class ForgotPassword extends Component {
           <div className="d-flex align-items-center">
             <Navbar.Collapse id="navbar-default-primary">
               <Nav className="navbar-nav-hover align-items-lg-center">
-                <Nav.Link as={HashLink} to="#about">
-                  About
-                </Nav.Link>
                 <Nav.Link as={Link} to={Routes.SignIn.path}>
                   Sign In
                 </Nav.Link>
                 <Nav.Link as={Link} to={Routes.SignUp.path}>
                   Sign Up
-                </Nav.Link>
-                <Nav.Link as={Link} to={"/"}>
-                  Support
                 </Nav.Link>
                 <Nav.Link as={Link} to={Routes.Contact.path}>
                   Contact
@@ -94,7 +88,7 @@ class ForgotPassword extends Component {
     return (
       <div>
         {this.renderNavBar()}
-        <main style={{ backgroundColor: "#262B40" }}>
+        <main style={{ backgroundColor: "#262B40", height: "100vh" }}>
           <section className="d-flex align-items-center my-5 mt-lg-6 mb-lg-5">
             <Container>
               <p className="text-center">

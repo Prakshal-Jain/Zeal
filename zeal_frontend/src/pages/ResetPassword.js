@@ -77,17 +77,11 @@ class ResetPassword extends Component {
                     <div className="d-flex align-items-center">
                         <Navbar.Collapse id="navbar-default-primary">
                             <Nav className="navbar-nav-hover align-items-lg-center">
-                                <Nav.Link as={HashLink} to="#about">
-                                    About
-                                </Nav.Link>
                                 <Nav.Link as={Link} to={Routes.SignIn.path}>
                                     Sign In
                                 </Nav.Link>
                                 <Nav.Link as={Link} to={Routes.SignUp.path}>
                                     Sign Up
-                                </Nav.Link>
-                                <Nav.Link as={Link} to={"/"}>
-                                    Support
                                 </Nav.Link>
                                 <Nav.Link as={Link} to={Routes.Contact.path}>
                                     Contact

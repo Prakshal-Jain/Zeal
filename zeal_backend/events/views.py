@@ -23,7 +23,7 @@ import jwt
 
 
 class EventsPagination(pagination.PageNumberPagination):
-    page_size = 10
+    page_size = 10000
 
 
 class OrganizerOngoingUpcomingEventView(viewsets.ModelViewSet):
@@ -128,9 +128,10 @@ class OrganizerParticipantsListView(viewsets.ModelViewSet):
         # event_id = self.request.query_params.get("event_id")
         data = self.request.data
         id = self.request.query_params.get("event_id")
-        
+
         event = OrganizerEventModel.objects.filter(id=id)
         return event
+
 
 class ParticipantEventLeaveView(viewsets.ModelViewSet):
 

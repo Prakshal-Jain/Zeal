@@ -70,7 +70,7 @@ class Homepage extends React.Component {
             <Col xs={12} className="text-center">
               {/* Edit styling at: zeal_frontend/src/scss/volt/components/_icon-box.scss */}
               <h1 className="fw-bolder theme-gradient-text">ZEAL</h1>
-              <p className="fw-light mb-5 h5">Making Event Search Easier</p>
+              <p className="fw-light mb-5 h5">Events Simplified</p>
             </Col>
           </Row>
           <Row>

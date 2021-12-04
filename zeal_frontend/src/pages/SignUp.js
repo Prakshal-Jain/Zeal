@@ -228,14 +228,6 @@ class SignUp extends Component {
                         </InputGroup>
                       </Form.Group>
 
-                      <FormCheck type="checkbox" className="d-flex mb-4">
-                        <FormCheck.Input required id="terms" className="me-2" />
-                        <FormCheck.Label htmlFor="terms">
-                          I agree to the{" "}
-                          <Card.Link>terms and conditions</Card.Link>
-                        </FormCheck.Label>
-                      </FormCheck>
-
                       {this.state.errors.length > 0 ? (
                         <Alert variant="warning">
                           <ul>

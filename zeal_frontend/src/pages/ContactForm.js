@@ -78,9 +78,6 @@ class Contact extends React.Component {
                 <Nav.Link as={Link} to={Routes.SignUp.path}>
                   Sign Up
                 </Nav.Link>
-                <Nav.Link as={Link} to="/">
-                  Support
-                </Nav.Link>
                 <Nav.Link
                   as={Link}
                   to={Routes.Contact.path}

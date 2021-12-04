@@ -41,6 +41,7 @@ class Events extends React.Component {
         get_participation_data: false,
       },
       all_events: null,
+      searchEventKeyword: "",
     };
   }
 
@@ -56,7 +57,7 @@ class Events extends React.Component {
 
   getAllEvents = async () => {
     await axios
-      .get("events/join/")
+      .get(`events/join/?search=${this.state.searchEventKeyword}`)
       .then((res) => this.setState({ all_events: res.data.results }));
   };
 
@@ -94,6 +95,10 @@ class Events extends React.Component {
     temp[key] = value;
     this.setState({ event: temp });
   };
+
+  searchEvents = async () => {
+    await this.getAllEvents();
+  }
 
   renderCreateForm = () => {
     return (
@@ -305,6 +310,20 @@ class Events extends React.Component {
         <Row>
           <Col>
             <h2>Events</h2>
+            <Row className="my-2">
+              <Col xs={9} lg={9}>
+                <Form.Control type="text" placeholder="Search events by name" value={this.state.searchEventKeyword} onChange={(e) => { this.setState({ searchEventKeyword: e.target.value }) }} />
+              </Col>
+              <Col xs={3} lg={3}>
+                <Button
+                  variant="success"
+                  className="w-100"
+                  onClick={this.searchEvents}
+                >
+                  Search
+                </Button>
+              </Col>
+            </Row>
             <hr />
             {this.state.all_events.map((event, index) => (
               <div>
@@ -349,11 +368,17 @@ class Events extends React.Component {
             ))}
           </Col>
           <Col>
-            <h2>Details</h2>
-            <hr />
-            <EventDetails
-              {...this.state.all_events[this.state.selectedIndex]}
-            ></EventDetails>
+            {this.state.all_events == null || this.state.all_events.length == 0 ?
+              ""
+              :
+              <div>
+                <h2>Details</h2>
+                <hr />
+                <EventDetails
+                  {...this.state.all_events[this.state.selectedIndex]}
+                ></EventDetails>
+              </div>
+            }
           </Col>
         </Row>
       </Container>

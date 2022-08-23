@@ -1,0 +1,17 @@
+.annotation-box{
+    position: fixed;
+    width: fit-content;
+    height: fit-content;
+    bottom: 0.5em;
+    right: 0.5em;
+    margin-right: 0.5em;
+    margin-bottom: 0.5em;
+    text-align: right;
+    padding: 1em;
+    cursor: pointer;
+    background: rgba(40, 40, 43, 0.7);
+    color: rgba(255, 255, 255, 1);
+    border: 0.1em solid gray;
+    border-radius: 0.3em;
+    backdrop-filter: blur(0.5em);
+}
